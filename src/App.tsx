@@ -4,6 +4,7 @@ import BurgerIngredients from './components/BurgerIngredients/BurgerIngredients'
 import BurgerConstructor from './components/BurgerConstructor/BurgerConstructor';
 import './App.css';
 import * as ui from '@ya.praktikum/react-developer-burger-ui-components';
+import state from './utils/data'
 
 function App() {
   return (
@@ -17,8 +18,8 @@ function App() {
 const BurgerMain = () => {
     return(
         <main className="BurgerMain container pl-5 pr-5">
-            <BurgerIngredients />
-            <BurgerConstructor />
+            <BurgerIngredients data={state} />
+            <BurgerConstructor data={state} />
         </main>
     )
 }

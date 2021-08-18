@@ -6,6 +6,8 @@
     --radius: 40px;
     --not-active-color: #8585AD;
     --font-color: #F2F2F3;
+    --scrollbar-color: #2F2F37;
+    --scrollbar-width:8px;
 }
 
 
@@ -23,7 +25,24 @@ body {
 
 *{
     box-sizing:border-box;
+    scrollbar-width: thin;
+    scrollbar-color: var(--not-active-color) var(--scrollbar-color);
 }
+
+*::-webkit-scrollbar {
+  width: var(--scrollbar-width);
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--scrollbar-color);
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--not-active-color);
+  border: 3px solid var(--not-active-color);
+}
+
+
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
