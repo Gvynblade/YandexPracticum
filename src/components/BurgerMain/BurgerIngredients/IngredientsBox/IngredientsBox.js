@@ -1,14 +1,16 @@
-import React, { FunctionComponent } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Styles from './IngredientsBox.module.scss'
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components'
+import { DataOblectPropTypes } from '../../../../utils/types.js'
 
-const IngredientsBox: FunctionComponent<any> = props => {
+const IngredientsBox = props => {
 
-    let buns:any[] = []
-    let mains:any[] = []
-    let sauces:any[] = []
+    let buns = []
+    let mains = []
+    let sauces = []
 
-    props.data.forEach( (i:any) => {
+    props.data.forEach( (i) => {
         switch (i.type) {
             case "bun":
                 buns.push(i);
@@ -28,7 +30,7 @@ const IngredientsBox: FunctionComponent<any> = props => {
 
             <div className={`${Styles.ingredientsBox__section} pb-2`}>
                 <h2 className={`${Styles.ingredientsBox__title} text text_type_main-medium pb-6`} >Булки</h2>
-                <div className={`${Styles.ingredientsBox__flex} pl-4 pr-4`}>
+                <div className={`${Styles.ingredientsBox__flex} pl-4 pr-2`}>
                     {buns.map( i => {
                         return (<div className={`${Styles.ingredientItem} mb-8`} key={i._id}>
                             { i._id === "60666c42cc7b410027a1a9b1" && <div className={Styles.ingredientItem__counter}>
@@ -48,13 +50,13 @@ const IngredientsBox: FunctionComponent<any> = props => {
 
             <div className={`${Styles.ingredientsBox__section} pb-2`}>
                 <h2 className={`${Styles.ingredientsBox__title} text text_type_main-medium pb-6`} >Соусы</h2>
-                <div className={`${Styles.ingredientsBox__flex} pl-4 pr-4`}>
+                <div className={`${Styles.ingredientsBox__flex} pl-4 pr-2`}>
                     {sauces.map( i => {
                         return (<div className={`${Styles.ingredientItem} mb-8`} key={i._id}>
                             { i._id === "60666c42cc7b410027a1a9b9" && <div className={Styles.ingredientItem__counter}>
                                 <Counter count={1} size="default" />
                             </div>}
-                            <img src={i.image} alt={i.name} className="pl-4 pr-4"/>
+                            <img src={i.image} alt={i.name} className="pl-4 pr-2"/>
                             <div className={`${Styles.ingredientItem__price} text text_type_digits-default pt-1 pb-2`} >
                                 <span className="pr-1">{i.price}</span> <CurrencyIcon type="primary" />
                             </div>
@@ -69,7 +71,7 @@ const IngredientsBox: FunctionComponent<any> = props => {
 
             <div className={`${Styles.ingredientsBox__section} pb-2`}>
                 <h2 className={`${Styles.ingredientsBox__title} text text_type_main-medium pb-6`} >Начинки</h2>
-                <div className={`${Styles.ingredientsBox__flex} pl-4 pr-4`}>
+                <div className={`${Styles.ingredientsBox__flex} pl-4 pr-2`}>
                     {mains.map( i => {
                         return (<div className={`${Styles.ingredientItem} mb-8`} key={i._id}>
                             { i._id === "60666c42cc7b410027a1a9b4" && <div className={Styles.ingredientItem__counter}>
@@ -88,6 +90,10 @@ const IngredientsBox: FunctionComponent<any> = props => {
             </div>
 
         </div>)
+}
+
+IngredientsBox.propTypes = {
+    data: PropTypes.arrayOf(DataOblectPropTypes.isRequired).isRequired
 }
 
 

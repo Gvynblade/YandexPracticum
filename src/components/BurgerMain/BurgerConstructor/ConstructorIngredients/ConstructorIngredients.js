@@ -1,8 +1,11 @@
-import React, { FunctionComponent } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import './ConstructorIngredients.scss'
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import { DataOblectPropTypes } from '../../../../utils/types.js'
 
-const ConstructorIngredients: FunctionComponent<any> = (props) => {
+const ConstructorIngredients = props => {
+
     return (
         <div className="constructorElement__box" >
 
@@ -10,14 +13,14 @@ const ConstructorIngredients: FunctionComponent<any> = (props) => {
                 <ConstructorElement
                     type="top"
                     isLocked={true}
-                    text={props.burgerItems.bunTop.name}
+                    text={`${props.burgerItems.bunTop.name} (верх)`}
                     price={props.burgerItems.bunTop.price}
                     thumbnail={props.burgerItems.bunTop.image_mobile}
                 />
             </div>
 
             <div className="constructorElement__scrollable" >
-                {props.burgerItems.ingredients.map( (i:any) => {
+                {props.burgerItems.ingredients.map( (i) => {
                     return (
                         <div className="constructorElement__item" key={i._id}>
                             <button className="constructorElement__itemDrag">
@@ -38,7 +41,7 @@ const ConstructorIngredients: FunctionComponent<any> = (props) => {
                 <ConstructorElement
                     type="bottom"
                     isLocked={true}
-                    text={props.burgerItems.bunBottom.name}
+                    text={`${props.burgerItems.bunBottom.name} (низ)`}
                     price={props.burgerItems.bunBottom.price}
                     thumbnail={props.burgerItems.bunBottom.image_mobile}
                 />
@@ -46,6 +49,16 @@ const ConstructorIngredients: FunctionComponent<any> = (props) => {
 
         </div>
     )
+}
+
+const burgerItemsPropTypes = PropTypes.shape({
+    bunTop: DataOblectPropTypes.isRequired,
+    ingredients: PropTypes.arrayOf(DataOblectPropTypes.isRequired).isRequired,
+    bunBottom: DataOblectPropTypes.isRequired
+});
+
+ConstructorIngredients.propTypes = {
+    burgerItems: burgerItemsPropTypes.isRequired
 }
 
 export default ConstructorIngredients;
