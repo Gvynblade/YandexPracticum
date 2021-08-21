@@ -1,0 +1,28 @@
+.header{
+    background: var(--main-bg-dark);
+}
+
+.nav{
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.logo{
+    position:absolute;
+    left:calc(50% - 145px)
+}
+
+.navItem{
+    border-radius: var(--radius);
+    text-decoration:none;
+    color: var(--not-active-color);
+    display:flex;
+    align-items: center;
+    &.active{
+        color: var(--font-color);
+    }
+    &:last-of-type{
+        margin-left:auto;
+    }
+}

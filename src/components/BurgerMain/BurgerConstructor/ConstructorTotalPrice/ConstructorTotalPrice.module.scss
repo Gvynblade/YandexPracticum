@@ -1,0 +1,12 @@
+.priceBox{
+    display:flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.priceIcon{
+    & svg {
+        width:33px;
+        height:33px;
+    }
+}
