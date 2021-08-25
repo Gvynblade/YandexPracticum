@@ -9,9 +9,9 @@ import { DataOblectPropTypes } from '../../../utils/types.js'
 const BurgerConstructor = props => {
 
     let burgerItems = {
-        bunTop: props.data[14],
+        bunTop: props.data[1],
         ingredients: [...props.data],
-        bunBottom: props.data[14]
+        bunBottom: props.data[1]
     }
 
     let totalPrice = burgerItems.bunTop.price + burgerItems.bunBottom.price;
