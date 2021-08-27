@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Styles from './BurgerIngredients.module.scss'
+import Styles from './burgerIngredients.module.scss'
 import IngredientsSwitcher from './ingredientsSwitcher/ingredientsSwitcher'
-import IngredientsBox from './IngredientsBox/IngredientsBox'
+import IngredientsBox from './ingredientsBox/ingredientsBox'
 import { DataOblectPropTypes } from '../../../utils/types.js'
 
 

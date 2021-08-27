@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Styles from './orderDetails.module.scss'
-import Modal from '../../../Modal/modal'
 
 const OrderDetails = (props) => {
 
     return (
-        <Modal onClose={() => props.modalToggler(props.isModal, props.setIsModal)}>
+
 
             <div className={Styles.modalFlex}>
                 <p className="text text_type_digits-large pt-8 pb-8">{props.data.orderID}</p>
@@ -25,21 +24,16 @@ const OrderDetails = (props) => {
                 </p>
 
             </div>
-
-        </Modal>
     )
 
 }
 
 OrderDetails.propTypes = {
-    modalToggler: PropTypes.func,
-    isModal:PropTypes.bool,
-    setIsModal: PropTypes.func,
     data: PropTypes.shape({
-        orderID: PropTypes.number,
-        statusIcon: PropTypes.string,
-        orderStatus: PropTypes.string,
-        orderDescription: PropTypes.string
+        orderID: PropTypes.number.isRequired,
+        statusIcon: PropTypes.string.isRequired,
+        orderStatus: PropTypes.string.isRequired,
+        orderDescription: PropTypes.string.isRequired
     })
 }
 

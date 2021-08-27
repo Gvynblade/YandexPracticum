@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Styles from './BurgerMain.module.scss'
-import BurgerIngredients from './BurgerIngredients/BurgerIngredients';
-import BurgerConstructor from './BurgerConstructor/BurgerConstructor';
+import Styles from './burgerMain.module.scss'
+import BurgerIngredients from './burgerIngredients/burgerIngredients';
+import BurgerConstructor from './burgerConstructor/burgerConstructor';
 import { DataOblectPropTypes } from '../../utils/types.js'
 
 const BurgerMain = (props) => {

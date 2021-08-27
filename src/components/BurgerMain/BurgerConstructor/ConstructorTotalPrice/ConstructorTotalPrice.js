@@ -1,15 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components'
-import Styles from './ConstructorTotalPrice.module.scss'
+import Styles from './constructorTotalPrice.module.scss'
 import { modalToggler } from '../../../../utils/modalToggler'
+import Modal from '../../../modal/modal'
 import OrderDetails from '../orderDetails/orderDetails'
 import orderIcon from '../../../../images/order-icon.svg'
 
 const ConstructorTotalPrice = props => {
 
-    let [isModal, setIsModal] = React.useState(false);
-    let [orderData, setOrderData] = React.useState({
+    const [isModal, setIsModal] = React.useState(false);
+    const [orderData, setOrderData] = React.useState({
         orderID: Number("034536"),
         statusIcon: orderIcon,
         orderStatus: 'Ваш заказ начали готовить',
@@ -26,7 +27,11 @@ const ConstructorTotalPrice = props => {
             </Button>
 
         </div>
-        {isModal && <OrderDetails modalToggler={modalToggler} isModal={isModal} setIsModal={setIsModal} data={orderData}/>}
+        {isModal &&
+            <Modal isModal={isModal} setIsModal={setIsModal}>
+                <OrderDetails data={orderData}/>
+            </Modal>
+        }
     </>
 }
 

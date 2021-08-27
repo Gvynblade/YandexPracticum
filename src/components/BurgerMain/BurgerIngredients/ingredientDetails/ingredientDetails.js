@@ -1,15 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Styles from './ingredientDetails.module.scss'
-import Modal from '../../../Modal/modal'
-import {modalToggler} from '../../../../utils/modalToggler'
 import { DataOblectPropTypes } from '../../../../utils/types'
 
 const IngredientDetails = (props) => {
 
     return (
-        <Modal onClose={() => modalToggler(props.isModal, props.setIsModal)} header={'Детали ингредиента'}>
-
         <div className={Styles.ingredientBox}>
 
             <img src={props.data.image_large} alt={props.data.name} className={Styles.ingredientImg} />
@@ -67,14 +62,10 @@ const IngredientDetails = (props) => {
             </div>
 
         </div>
-
-    </Modal>
-)}
+    )}
 
 IngredientDetails.propTypes = {
-    data: DataOblectPropTypes.isRequired,
-    isModal: PropTypes.bool,
-    setIsModal: PropTypes.func
+    data: DataOblectPropTypes.isRequired
 }
 
 export default IngredientDetails;

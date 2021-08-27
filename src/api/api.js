@@ -8,7 +8,7 @@ export const IngredientsAPI = {
             let data = await response.json()
             setter(data.data)
         } catch (error) {
-            throw new Error(error);
+            console.log(error);
         }
     },
 }

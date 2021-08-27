@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Styles from './IngredientsBox.module.scss'
+import Styles from './ingredientsBox.module.scss'
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components'
 import { DataOblectPropTypes } from '../../../../utils/types.js'
+import Modal from '../../../modal/modal'
 import IngredientDetails from '../ingredientDetails/ingredientDetails'
 
 const IngredientsBox = props => {
@@ -101,7 +102,10 @@ const IngredientsBox = props => {
 
         </div>
 
-        {isModal && <IngredientDetails data={modalData} isModal={isModal} setIsModal={setIsModal}/>}
+        {isModal &&
+            <Modal isModal={isModal} setIsModal={setIsModal} header={'Детали ингредиента'}>
+                <IngredientDetails data={modalData}/>
+            </Modal>}
 
     </>)
 }
