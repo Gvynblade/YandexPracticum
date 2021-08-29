@@ -1,0 +1,13 @@
+.preloader{
+    padding: 40px 0;
+    text-align: center;
+    & > img {
+        width:300px;
+        height:auto;
+    }
+}
+
+.preloader_description{
+    padding-top:40px;
+    color: var(--not-active-color);
+}

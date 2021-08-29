@@ -1,10 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Styles from './IngredientsBox.module.scss'
+import Styles from './ingredientsBox.module.scss'
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components'
 import { DataOblectPropTypes } from '../../../../utils/types.js'
+import Modal from '../../../modal/modal'
+import IngredientDetails from '../ingredientDetails/ingredientDetails'
 
 const IngredientsBox = props => {
+
+    let [isModal, setIsModal] = React.useState(false);
+    let [modalData, setModalData] = React.useState(null);
 
     let buns = []
     let mains = []
@@ -26,15 +31,21 @@ const IngredientsBox = props => {
         }
     })
 
-    return (<div className={`${Styles.ingredientsBox} pt-10`}>
+    const handleModal = (item) => {
+        setIsModal(!isModal);
+        setModalData(item)
+    }
+
+    return ( <>
+        <div className={`${Styles.ingredientsBox} pt-10`}>
 
             <div className={`${Styles.ingredientsBox__section} pb-2`}>
                 <h2 className={`${Styles.ingredientsBox__title} text text_type_main-medium pb-6`} >Булки</h2>
                 <div className={`${Styles.ingredientsBox__flex} pl-4 pr-2`}>
                     {buns.map( i => {
-                        return (<div className={`${Styles.ingredientItem} mb-8`} key={i._id}>
-                            { i._id === "60666c42cc7b410027a1a9b1" && <div className={Styles.ingredientItem__counter}>
-                                <Counter count={1} size="default" />
+                        return (<div className={`${Styles.ingredientItem} mb-8`} key={i._id} onClick={() => handleModal(i)}>
+                            { i._id === "60d3b41abdacab0026a733c7" && <div className={Styles.ingredientItem__counter}>
+                                <Counter count={2} size="default" />
                             </div>}
                             <img src={i.image} alt={i.name} className="pl-4 pr-4"/>
                             <div className={`${Styles.ingredientItem__price} text text_type_digits-default pt-1 pb-2`} >
@@ -52,8 +63,8 @@ const IngredientsBox = props => {
                 <h2 className={`${Styles.ingredientsBox__title} text text_type_main-medium pb-6`} >Соусы</h2>
                 <div className={`${Styles.ingredientsBox__flex} pl-4 pr-2`}>
                     {sauces.map( i => {
-                        return (<div className={`${Styles.ingredientItem} mb-8`} key={i._id}>
-                            { i._id === "60666c42cc7b410027a1a9b9" && <div className={Styles.ingredientItem__counter}>
+                        return (<div className={`${Styles.ingredientItem} mb-8`} key={i._id} onClick={() => handleModal(i)}>
+                            { i._id === "60d3b41abdacab0026a733cf" && <div className={Styles.ingredientItem__counter}>
                                 <Counter count={1} size="default" />
                             </div>}
                             <img src={i.image} alt={i.name} className="pl-4 pr-2"/>
@@ -73,8 +84,8 @@ const IngredientsBox = props => {
                 <h2 className={`${Styles.ingredientsBox__title} text text_type_main-medium pb-6`} >Начинки</h2>
                 <div className={`${Styles.ingredientsBox__flex} pl-4 pr-2`}>
                     {mains.map( i => {
-                        return (<div className={`${Styles.ingredientItem} mb-8`} key={i._id}>
-                            { i._id === "60666c42cc7b410027a1a9b4" && <div className={Styles.ingredientItem__counter}>
+                        return (<div className={`${Styles.ingredientItem} mb-8`} key={i._id} onClick={() => handleModal(i)}>
+                            { i._id === "60d3b41abdacab0026a733cb" && <div className={Styles.ingredientItem__counter}>
                                 <Counter count={1} size="default" />
                             </div>}
                             <img src={i.image} alt={i.name} className="pl-4 pr-4"/>
@@ -89,7 +100,14 @@ const IngredientsBox = props => {
                 </div>
             </div>
 
-        </div>)
+        </div>
+
+        {isModal &&
+            <Modal isModal={isModal} setIsModal={setIsModal} header={'Детали ингредиента'}>
+                <IngredientDetails data={modalData}/>
+            </Modal>}
+
+    </>)
 }
 
 IngredientsBox.propTypes = {
