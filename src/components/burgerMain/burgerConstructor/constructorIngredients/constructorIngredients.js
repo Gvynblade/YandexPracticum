@@ -13,9 +13,9 @@ const ConstructorIngredients = props => {
                 <ConstructorElement
                     type="top"
                     isLocked={true}
-                    text={`${props.burgerItems.bunTop.name} (верх)`}
-                    price={props.burgerItems.bunTop.price}
-                    thumbnail={props.burgerItems.bunTop.image_mobile}
+                    text={`${props.burgerItems.bun.name} (верх)`}
+                    price={props.burgerItems.bun.price}
+                    thumbnail={props.burgerItems.bun.image_mobile}
                 />
             </div>
 
@@ -41,9 +41,9 @@ const ConstructorIngredients = props => {
                 <ConstructorElement
                     type="bottom"
                     isLocked={true}
-                    text={`${props.burgerItems.bunBottom.name} (низ)`}
-                    price={props.burgerItems.bunBottom.price}
-                    thumbnail={props.burgerItems.bunBottom.image_mobile}
+                    text={`${props.burgerItems.bun.name} (низ)`}
+                    price={props.burgerItems.bun.price}
+                    thumbnail={props.burgerItems.bun.image_mobile}
                 />
             </div>
 
@@ -52,9 +52,8 @@ const ConstructorIngredients = props => {
 }
 
 const burgerItemsPropTypes = PropTypes.shape({
-    bunTop: DataOblectPropTypes.isRequired,
-    ingredients: PropTypes.arrayOf(DataOblectPropTypes.isRequired).isRequired,
-    bunBottom: DataOblectPropTypes.isRequired
+    bun: DataOblectPropTypes.isRequired,
+    ingredients: PropTypes.arrayOf(DataOblectPropTypes.isRequired).isRequired
 });
 
 ConstructorIngredients.propTypes = {

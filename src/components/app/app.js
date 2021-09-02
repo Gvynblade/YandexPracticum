@@ -3,7 +3,8 @@ import AppHeader from './appHeader/appHeader';
 import BurgerMain from '../burgerMain/burgerMain'
 import Preloader from '../common/preloader'
 import * as ui from '@ya.praktikum/react-developer-burger-ui-components';
-import { IngredientsAPI } from '../../api/api'
+import { ingredientsAPI } from '../../api/api'
+import { IngredientsContext } from '../../context/context'
 
 function App() {
 
@@ -11,7 +12,7 @@ function App() {
     const [isFetching, setIsFetching] = useState(true);
 
     useEffect( () => {
-        IngredientsAPI.requestIngredients(setState)
+        ingredientsAPI.requestIngredients(setState)
     }, [])
 
     useEffect( () => {
@@ -23,14 +24,14 @@ function App() {
     }, [state])
 
     return (
-        <>
+        <IngredientsContext.Provider value={state} >
             <AppHeader />
             { isFetching ?
                 <Preloader />
                 :
-                <BurgerMain data={state} />
+                <BurgerMain />
             }
-        </>
+        </ IngredientsContext.Provider>
     )
 }
 

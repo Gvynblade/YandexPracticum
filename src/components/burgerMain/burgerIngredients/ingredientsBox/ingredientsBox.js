@@ -1,12 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Styles from './ingredientsBox.module.scss'
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components'
-import { DataOblectPropTypes } from '../../../../utils/types.js'
 import Modal from '../../../modal/modal'
 import IngredientDetails from '../ingredientDetails/ingredientDetails'
+import { IngredientsContext } from '../../../../context/context'
 
-const IngredientsBox = props => {
+const IngredientsBox = () => {
+
+    const data = React.useContext(IngredientsContext)
 
     let [isModal, setIsModal] = React.useState(false);
     let [modalData, setModalData] = React.useState(null);
@@ -15,7 +16,7 @@ const IngredientsBox = props => {
     let mains = []
     let sauces = []
 
-    props.data.forEach( (i) => {
+    data.forEach( (i) => {
         switch (i.type) {
             case "bun":
                 buns.push(i);
@@ -108,10 +109,6 @@ const IngredientsBox = props => {
             </Modal>}
 
     </>)
-}
-
-IngredientsBox.propTypes = {
-    data: PropTypes.arrayOf(DataOblectPropTypes.isRequired).isRequired
 }
 
 
