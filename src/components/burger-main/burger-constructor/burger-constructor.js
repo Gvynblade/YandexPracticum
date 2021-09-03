@@ -1,7 +1,7 @@
 import React from 'react';
-import Styles from './burgerConstructor.module.scss';
-import ConstructorIngredients from './constructorIngredients/constructorIngredients';
-import ConstructorTotalPrice from './constructorTotalPrice/constructorTotalPrice'
+import styles from './burger-constructor.module.scss';
+import ConstructorIngredients from './constructor-ingredients/constructor-ingredients';
+import ConstructorTotalPrice from './constructor-total-price/constructor-total-price'
 import { IngredientsContext } from '../../../context/context'
 
 
@@ -15,7 +15,7 @@ const BurgerConstructor = () => {
     }
 
     let orderData = {
-        IngredientsID: [burgerItems.bun._id, burgerItems.bun._id],
+        ingredientsID: [burgerItems.bun._id, burgerItems.bun._id],
         totalPrice: burgerItems.bun.price * 2
     };
 
@@ -24,12 +24,12 @@ const BurgerConstructor = () => {
     })
 
     burgerItems.ingredients.forEach( (i) => {
-        orderData.IngredientsID.push(i._id)
+        orderData.ingredientsID.push(i._id)
         orderData.totalPrice += i.price;
     })
 
     return (
-        <section className={`${Styles.section} pt-25 pl-4 pr-4`}>
+        <section className={`${styles.section} pt-25 pl-4 pr-4`}>
             <ConstructorIngredients burgerItems={burgerItems} />
             <ConstructorTotalPrice data={orderData} />
         </section>

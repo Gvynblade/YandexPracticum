@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './constructorIngredients.scss'
+import './constructor-ingredients.scss'
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { DataOblectPropTypes } from '../../../../utils/types.js'
 

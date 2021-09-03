@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import AppHeader from './appHeader/appHeader';
-import BurgerMain from '../burgerMain/burgerMain'
+import AppHeader from '../header/header';
+import BurgerMain from '../burger-main/burger-main'
 import Preloader from '../common/preloader'
-import * as ui from '@ya.praktikum/react-developer-burger-ui-components';
 import { ingredientsAPI } from '../../api/api'
 import { IngredientsContext } from '../../context/context'
 

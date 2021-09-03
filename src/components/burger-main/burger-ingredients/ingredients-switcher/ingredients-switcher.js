@@ -1,11 +1,11 @@
 import React from 'react';
-import Styles from './ingredientsSwitcher.module.scss'
+import styles from './ingredients-switcher.module.scss'
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 
 const IngredientsSwitcher = () => {
     const [current, setCurrent] = React.useState('one')
     return (
-        <div className={Styles.block}>
+        <div className={styles.block}>
             <Tab value="one" active={current === 'one'} onClick={setCurrent}>
                 Булки
             </Tab>
