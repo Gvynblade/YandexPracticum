@@ -1,0 +1,6 @@
+.ingredientsBox{
+    flex-grow: 1;
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    scrollbar-color: var(--not-active-color) var(--scrollbar-color);
+}

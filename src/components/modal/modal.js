@@ -1,10 +1,10 @@
 import React from 'react';
-import Styles from './modal.module.scss'
+import styles from './modal.module.scss'
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom'
-import ModalOverlay from './modalOverlay/modalOverlay'
+import ModalOverlay from './modal-overlay/modal-overlay'
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import {modalToggler} from '../../utils/modalToggler'
+import {modalToggler} from '../../utils/modal-toggler'
 
 const modalRoot = document.getElementById('modal');
 
@@ -16,7 +16,7 @@ const Modal = (props) => {
 
     const escFunction = (e) => {
         if(e.keyCode === 27) {
-            modalToggler(props.isModal, props.setIsModal)
+            modalToggler(props.isModalOpen, props.setIsModalOpen)
         }
     }
 
@@ -32,12 +32,12 @@ const Modal = (props) => {
 
     return ReactDOM.createPortal(
 
-        ( <ModalOverlay onClose={() => modalToggler(props.isModal, props.setIsModal)}>
+        ( <ModalOverlay onClose={() => modalToggler(props.isModalOpen, props.setIsModalOpen)}>
 
-            <div className={`${Styles.modal} pt-10 pr-10 pl-10 pb-15`} onClick={handleStopPropagation}>
-                <div className={Styles.header}>
+            <div className={`${styles.modal} pt-10 pr-10 pl-10 pb-15`} onClick={handleStopPropagation}>
+                <div className={styles.header}>
                     {header && <p className="text text_type_main-large">{header}</p>}
-                    <span className={Styles.modalCloseBtn} ><CloseIcon type="primary"  onClick={() => modalToggler(props.isModal, props.setIsModal)} /></span>
+                    <span className={styles.modalCloseBtn} ><CloseIcon type="primary"  onClick={() => modalToggler(props.isModalOpen, props.setIsModalOpen)} /></span>
                 </div>
                 {children}
             </div>
@@ -50,8 +50,8 @@ const Modal = (props) => {
 
 Modal.propTypes = {
     header: PropTypes.string,
-    isModal: PropTypes.bool.isRequired,
-    setIsModal: PropTypes.func.isRequired,
+    isModalOpen: PropTypes.bool.isRequired,
+    setIsModalOpen: PropTypes.func.isRequired,
     children: PropTypes.element.isRequired
 }
 
