@@ -1,8 +1,9 @@
 .preloader{
+    width:100%;
     padding: 40px 0;
     text-align: center;
     & > img {
-        width:300px;
+        width:50%;
         height:auto;
     }
 }

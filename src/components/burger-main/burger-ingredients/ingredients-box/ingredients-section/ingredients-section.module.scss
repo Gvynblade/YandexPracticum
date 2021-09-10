@@ -3,31 +3,3 @@
     flex-wrap: wrap;
     justify-content: space-between;
 }
-
-.ingredient{
-    display: flex;
-    flex-basis: 272px;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-    cursor:pointer;
-}
-
-.ingredient__counter{
-    position: absolute;
-    top:0;
-    right:0;
-}
-
-.ingredient__price{
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-}
-
-.ingredient__title{
-    display: block;
-    width: 100%;
-    height: 48px;
-    text-align: center;
-}

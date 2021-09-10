@@ -3,3 +3,23 @@
     display: flex;
     flex-direction: column;
 }
+
+.dropbox{
+    &.placeholder{
+        flex-grow:1;
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 40px;
+        flex-grow:1;
+        background:var(--scrollbar-color);
+        padding: 80px;
+        text-align: center;
+        border: 2px solid var(--scrollbar-color);
+        transition: border .5s;
+    }
+    &.placeholder.dropHover{
+        border: 2px solid var(--not-active-color);
+        transition: border .5s;
+    }
+}

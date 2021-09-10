@@ -1,18 +1,21 @@
 import React from 'react';
+import { useSelector} from 'react-redux'
 import styles from './ingredients-switcher.module.scss'
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 
 const IngredientsSwitcher = () => {
-    const [current, setCurrent] = React.useState('one')
+
+    const {currentTab} = useSelector( store => store.burgerIngredients)
+
     return (
         <div className={styles.block}>
-            <Tab value="one" active={current === 'one'} onClick={setCurrent}>
+            <Tab value="one" active={currentTab === 'buns'} >
                 Булки
             </Tab>
-            <Tab value="two" active={current === 'two'} onClick={setCurrent}>
+            <Tab value="sauces" active={currentTab === 'sauces'} >
                 Соусы
             </Tab>
-            <Tab value="three" active={current === 'three'} onClick={setCurrent}>
+            <Tab value="mains" active={currentTab === 'mains'} >
                 Начинки
             </Tab>
         </div>

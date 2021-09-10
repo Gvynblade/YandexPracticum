@@ -3,58 +3,140 @@ import styles from './ingredients-box.module.scss'
 import Modal from '../../../modal/modal'
 import IngredientDetails from '../ingredient-details/ingredient-details'
 import IngredientsSection from './ingredients-section/ingredients-section'
-import { IngredientsContext } from '../../../../context/context'
+import { useSelector, useDispatch } from 'react-redux';
+import Preloader from '../../../common/preloader'
+import { SET_MODAL_DATA, SET_CURRENT_TAB, REMOVE_MODAL_DATA } from '../../../../services/actions/ingredients'
 
 const IngredientsBox = () => {
 
-    const data = React.useContext(IngredientsContext)
+    const {ingredients, ingredientsRequest} = useSelector( store => store.burgerIngredients)
+    const dispatch = useDispatch()
 
-    let [isModalOpen, setIsModalOpen] = React.useState(false);
-    let [modalData, setModalData] = React.useState(null);
+    const [isModalOpen, setIsModalOpen] = React.useState(false);
+    const [scrollPosition, setScrollPosition] = React.useState({
+        buns: null,
+        sauces: null,
+        mains: null
+    });
 
     let buns = []
     let mains = []
     let sauces = []
 
-    data.forEach( (i) => {
+    ingredients.forEach( (i) => {
         switch (i.type) {
             case "bun":
-                buns.push(i);
-                break;
+            buns.push(i);
+            break;
             case "main":
-                mains.push(i);
-                break;
+            mains.push(i);
+            break;
             case "sauce":
-                sauces.push(i);
-                break;
+            sauces.push(i);
+            break;
             default:
-                break;
+            break;
         }
     })
 
-    const handleModal = (item) => {
+    const handleModalOpen = (item) => {
         setIsModalOpen(!isModalOpen);
-        setModalData(item)
+        dispatch({
+            type: SET_MODAL_DATA,
+            payload: {
+                modalData: item
+            }
+        })
+    }
+
+    const handleModalClose =  (isModalOpen) => {
+        setIsModalOpen(isModalOpen)
+        dispatch({
+            type: REMOVE_MODAL_DATA
+        })
+    }
+
+    const parentRef = React.useRef( );
+    const bunsRef = React.useRef();
+    const saucesRef = React.useRef();
+    const mainsRef = React.useRef();
+
+
+    const handleScroll = (element) => {
+
+        setScrollPosition({
+            buns: bunsRef.current === null ? scrollPosition.buns : bunsRef.current.offsetTop,
+            sauces: saucesRef.current === null ? scrollPosition.sauces : saucesRef.current.offsetTop,
+            mains: mainsRef.current === null ? scrollPosition.mains : mainsRef.current.offsetTop
+        })
+
+        const parentScroll = element.target.scrollTop
+
+        if (parentScroll < scrollPosition.sauces) {
+            dispatch({
+                type: SET_CURRENT_TAB,
+                payload: {
+                    currentTab: "buns"
+                }
+            })
+        }
+
+        if (parentScroll >= scrollPosition.sauces && parentScroll < scrollPosition.mains) {
+            dispatch({
+                type: SET_CURRENT_TAB,
+                payload: {
+                    currentTab: "sauces"
+                }
+            })
+        }
+
+        if (parentScroll > scrollPosition.sauces && parentScroll >= scrollPosition.mains) {
+            dispatch({
+                type: SET_CURRENT_TAB,
+                payload: {
+                    currentTab: "mains"
+                }
+            })
+        }
     }
 
     return ( <>
-        <div className={`${styles.ingredientsBox} pt-10`} >
+        <div className={`${styles.ingredientsBox} pt-10`} ref={parentRef} onScroll={ e => handleScroll(e)}>
 
-            <IngredientsSection ingredientsArr={buns} handleModal={handleModal} header={'Булки'}/>
+            {ingredientsRequest ?
+                <Preloader />
+                :
+                [
+                    <IngredientsSection ingredients={buns}
+                        handleModalOpen={handleModalOpen}
+                        header={'Булки'}
+                        key={'Булки'}
+                        ref={bunsRef}/>,
 
-            <IngredientsSection ingredientsArr={sauces} handleModal={handleModal} header={'Соусы'} />
+                    <IngredientsSection
+                        ingredients={sauces}
+                        handleModalOpen={handleModalOpen}
+                        header={'Соусы'}
+                        key={'Соусы'}
+                        ref={saucesRef}/>,
 
-            <IngredientsSection ingredientsArr={mains} handleModal={handleModal} header={'Начинки'} />
+                    <IngredientsSection
+                        ingredients={mains}
+                        handleModalOpen={handleModalOpen}
+                        header={'Начинки'}
+                        key={'Начинки'}
+                        ref={mainsRef}/>
+                ]
+            }
 
         </div>
 
         {isModalOpen &&
-            <Modal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} header={'Детали ингредиента'}>
-                <IngredientDetails data={modalData}/>
+            <Modal isModalOpen={isModalOpen} setIsModalOpen={handleModalClose} header={'Детали ингредиента'}>
+                <IngredientDetails />
             </Modal>}
+            </> )
+        }
 
-    </>)
-}
 
-
-export default IngredientsBox
+        export default IngredientsBox
