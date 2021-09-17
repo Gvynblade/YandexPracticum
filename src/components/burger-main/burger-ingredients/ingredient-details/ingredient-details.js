@@ -1,16 +1,18 @@
 import React from 'react';
 import styles from './ingredient-details.module.scss'
-import { DataOblectPropTypes } from '../../../../utils/types'
+import { useSelector } from 'react-redux';
 
-const IngredientDetails = (props) => {
+const IngredientDetails = () => {
+
+    const {modalData} = useSelector( store => store.burgerIngredients)
 
     return (
         <div className={styles.ingredientBox}>
 
-            <img src={props.data.image_large} alt={props.data.name} className={styles.ingredientImg} />
+            <img src={modalData.image_large} alt={modalData.name} className={styles.ingredientImg} />
 
             <p className="text text_type_main-medium pt-4 pb-8">
-                {props.data.name}
+                {modalData.name}
             </p>
 
             <div className={styles.ingredientInfo}>
@@ -22,7 +24,7 @@ const IngredientDetails = (props) => {
                         </p>
                     </span>
                     <span className={styles.ingredientInfo__value}>
-                        <p className="text text_type_digits-default">{props.data.calories}</p>
+                        <p className="text text_type_digits-default">{modalData.calories}</p>
                     </span>
                 </div>
 
@@ -33,7 +35,7 @@ const IngredientDetails = (props) => {
                         </p>
                     </span>
                     <span className={styles.ingredientInfo__value}>
-                        <p className="text text_type_digits-default">{props.data.proteins}</p>
+                        <p className="text text_type_digits-default">{modalData.proteins}</p>
                     </span>
                 </div>
 
@@ -44,7 +46,7 @@ const IngredientDetails = (props) => {
                         </p>
                     </span>
                     <span className={styles.ingredientInfo__value}>
-                        <p className="text text_type_digits-default">{props.data.fat}</p>
+                        <p className="text text_type_digits-default">{modalData.fat}</p>
                     </span>
                 </div>
 
@@ -55,7 +57,7 @@ const IngredientDetails = (props) => {
                         </p>
                     </span>
                     <span className={styles.ingredientInfo__value}>
-                        <p className="text text_type_digits-default">{props.data.carbohydrates}</p>
+                        <p className="text text_type_digits-default">{modalData.carbohydrates}</p>
                     </span>
                 </div>
 
@@ -63,9 +65,5 @@ const IngredientDetails = (props) => {
 
         </div>
     )}
-
-IngredientDetails.propTypes = {
-    data: DataOblectPropTypes.isRequired
-}
 
 export default IngredientDetails;

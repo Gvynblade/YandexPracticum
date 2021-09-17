@@ -3,20 +3,27 @@ const APIUrlOrders = 'https://norma.nomoreparties.space/api/orders'
 
 export const ingredientsAPI = {
 
-    async requestIngredients (setter) {
+    async requestIngredients () {
         try {
-            const response = await fetch (APIUrlIngredients, {withCredentials: true})
-            const data = await response.json()
-            setter(data.data)
+            let response = await fetch (APIUrlIngredients, {withCredentials: true})
+            response = await response.json()
+            return {
+                success: true,
+                data: response.data
+            }
         } catch (error) {
             console.log(error);
+            return {
+                success: false,
+                error
+            }
         }
     },
 }
 
 export const ordersAPI = {
 
-    async postOrder (payload, data, setter) {
+    async postOrder (payload) {
         try {
             let response = await fetch (APIUrlOrders, {
                 method: 'POST',
@@ -29,10 +36,9 @@ export const ordersAPI = {
                 })
             })
             response = await response.json()
-            setter({
-                ...data,
-                orderID: response.order.number
-            })
+            return {
+                ...response
+            }
         } catch (error) {
             console.log(error);
         }

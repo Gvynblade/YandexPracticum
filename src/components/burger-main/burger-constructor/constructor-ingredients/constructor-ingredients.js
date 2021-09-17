@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './constructor-ingredients.scss'
-import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components'
 import { DataOblectPropTypes } from '../../../../utils/types.js'
+import DraggableElement from './draggable-element'
 
 const ConstructorIngredients = props => {
 
@@ -13,27 +14,15 @@ const ConstructorIngredients = props => {
                 <ConstructorElement
                     type="top"
                     isLocked={true}
-                    text={`${props.burgerItems.bun.name} (верх)`}
-                    price={props.burgerItems.bun.price}
-                    thumbnail={props.burgerItems.bun.image_mobile}
+                    text={`${props.bun.name} (верх)`}
+                    price={props.bun.price}
+                    thumbnail={props.bun.image_mobile}
                 />
             </div>
 
             <div className="constructorElement__scrollable" >
-                {props.burgerItems.ingredients.map( (i) => {
-                    return (
-                        <div className="constructorElement__item" key={i._id}>
-                            <button className="constructorElement__itemDrag">
-                                <DragIcon type="primary" />
-                            </button>
-
-                            <ConstructorElement
-                                text={i.name}
-                                price={i.price}
-                                thumbnail={i.image_mobile}
-                            />
-                        </div>
-                    )
+                {props.ingredients.map( (i, index) => {
+                    return (<DraggableElement {...i} index={index} key={i.hash}/>)
                 })}
             </div>
 
@@ -41,9 +30,9 @@ const ConstructorIngredients = props => {
                 <ConstructorElement
                     type="bottom"
                     isLocked={true}
-                    text={`${props.burgerItems.bun.name} (низ)`}
-                    price={props.burgerItems.bun.price}
-                    thumbnail={props.burgerItems.bun.image_mobile}
+                    text={`${props.bun.name} (низ)`}
+                    price={props.bun.price}
+                    thumbnail={props.bun.image_mobile}
                 />
             </div>
 
@@ -51,13 +40,9 @@ const ConstructorIngredients = props => {
     )
 }
 
-const burgerItemsPropTypes = PropTypes.shape({
+ConstructorIngredients.propTypes = {
     bun: DataOblectPropTypes.isRequired,
     ingredients: PropTypes.arrayOf(DataOblectPropTypes.isRequired).isRequired
-});
-
-ConstructorIngredients.propTypes = {
-    burgerItems: burgerItemsPropTypes.isRequired
 }
 
 export default ConstructorIngredients;
