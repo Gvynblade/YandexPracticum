@@ -4,9 +4,11 @@ import appReducer from "./app"
 import ingredientsReducer from './ingredients'
 import constructorReducer from './construtor'
 import orderReducer from './order'
+import authReducer from './auth'
 
 const rootReducer = combineReducers({
     app: appReducer,
+    auth: authReducer,
     burgerIngredients: ingredientsReducer,
     burgerConstructor: constructorReducer,
     order: orderReducer

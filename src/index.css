@@ -8,6 +8,7 @@
     --font-color: #F2F2F3;
     --scrollbar-color: #2F2F37;
     --scrollbar-width:8px;
+    --link-color: #4C4CFF;
 }
 
 
@@ -52,4 +53,9 @@ code {
 .container {
     width: 1280px;
     margin: 0 auto;
+}
+
+main {
+    display:flex;
+    height: calc(100vh - 96px);
 }

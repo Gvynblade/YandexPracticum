@@ -1,0 +1,16 @@
+.profile__input .input_size_default{
+    width:100% !important;
+    flex-grow: 1;
+}
+
+.profile__input input{
+    color: var(--not-active-color);
+}
+
+.profile__input .input__container{
+    width:100% !important;
+}
+
+.profile__buttons button:last-of-type{
+    margin-left:20px;
+}

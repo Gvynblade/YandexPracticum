@@ -1,0 +1,27 @@
+.profile{
+    padding-top:120px;
+}
+
+.profile__nav{
+    width:320px;
+}
+
+.navLink{
+    display: flex;
+    align-items: center;
+    height:64px;
+    text-decoration: none;
+    color: var(--not-active-color);
+    &.active{
+        color: var(--font-color);
+    }
+}
+
+.gray{
+    color: var(--not-active-color);
+    opacity: 0.4;
+}
+
+.profile__body{
+    width: 480px;
+}
