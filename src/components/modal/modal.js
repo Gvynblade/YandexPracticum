@@ -7,6 +7,7 @@ import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { useDispatch, useSelector } from 'react-redux';
 import { MODAL_CLOSE } from '../../services/actions/app'
 import { ORDER_DATA_RESET } from '../../services/actions/order'
+import { REMOVE_MODAL_DATA } from '../../services/actions/ingredients'
 import { useHistory } from 'react-router-dom'
 
 const modalRoot = document.getElementById('modal');
@@ -41,6 +42,9 @@ const Modal = (props) => {
                 isModalOpen:false,
                 modalType: null
             }
+        })
+        modalType === 'ingredient' && dispatch({
+            type: REMOVE_MODAL_DATA
         })
         modalType === 'ingredient' && history.push('/')
         modalType === 'order' && dispatch({

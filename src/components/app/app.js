@@ -7,18 +7,26 @@ import { Provider } from 'react-redux';
 import store from '../../services/reducers';
 import ProtectedRoute from '../hoc/protected-route'
 import IngredientComponentSwitcher from '../hoc/ingredient-component-switcher'
+import {useDispatch} from 'react-redux';
+import { requestIngredients } from '../../services/actions/ingredients'
 
 function App() {
+
+    const dispatch = useDispatch()
+
+    React.useEffect( () => {
+        dispatch(requestIngredients())
+    }, [dispatch])
+
     return (
-        <Provider store={store} >
-            <Router>
+            <>
                 <AppHeader />
 
                 <Switch>
                     <Route exact path={'/'}>
                         <BurgerMain />
                     </Route>
-                    <Route path={'/ingredients'}>
+                    <Route exact path={'/ingredients/:id'}>
                         <IngredientComponentSwitcher />
                     </Route>
                     <ProtectedRoute path={'/profile'}>
@@ -40,10 +48,18 @@ function App() {
                         <NotFoundPage />
                     </Route>
                 </Switch>
+            </>
+    )
+}
 
+const AppContainer = () => {
+    return (
+        <Provider store={store} >
+            <Router>
+                <App />
             </Router>
         </ Provider>
     )
 }
 
-export default App;
+export default AppContainer;

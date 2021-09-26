@@ -53,7 +53,7 @@ const IngredientsBox = () => {
                 modalData: item
             }
         })
-        history.push('/ingredients/'+ item._id)
+        history.push('/ingredients/' + item._id)
     }
 
     const parentRef = React.useRef();

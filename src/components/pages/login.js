@@ -12,8 +12,7 @@ const LoginPage = () => {
 
     const dispatch = useDispatch()
     const history = useHistory()
-
-    console.log(history)
+    
     const [loginForm, setLoginForm] = useState({
         email: '',
         password: ''
