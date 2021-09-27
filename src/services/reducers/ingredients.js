@@ -6,7 +6,7 @@ INCREASE_ITEM_COUNTER, DECREASE_ITEM_COUNTER } from '../actions/ingredients'
 const initialState = {
     ingredients: [],
     ingredientsRequest: false,
-    ingredientsSuccess: false,
+    ingredientsSuccess: null,
     modalData: {},
     error: null,
     currentTab: 'buns'

@@ -4,11 +4,19 @@ import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom'
 import ModalOverlay from './modal-overlay/modal-overlay'
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import {modalToggler} from '../../utils/modal-toggler'
+import { useDispatch, useSelector } from 'react-redux';
+import { MODAL_CLOSE } from '../../services/actions/app'
+import { ORDER_DATA_RESET } from '../../services/actions/order'
+import { REMOVE_MODAL_DATA } from '../../services/actions/ingredients'
+import { useHistory } from 'react-router-dom'
 
 const modalRoot = document.getElementById('modal');
 
 const Modal = (props) => {
+
+    const { modalType } = useSelector( store => store.app)
+    const dispatch = useDispatch()
+    const history = useHistory()
 
     const handleStopPropagation = (e) => {
         e.stopPropagation();
@@ -16,7 +24,7 @@ const Modal = (props) => {
 
     const escFunction = (e) => {
         if(e.keyCode === 27) {
-            modalToggler(props.isModalOpen, props.setIsModalOpen)
+            handleModalClose()
         }
     }
 
@@ -27,17 +35,34 @@ const Modal = (props) => {
         }
     } )
 
+    const handleModalClose = () => {
+        dispatch({
+            type: MODAL_CLOSE,
+            payload: {
+                isModalOpen:false,
+                modalType: null
+            }
+        })
+        modalType === 'ingredient' && dispatch({
+            type: REMOVE_MODAL_DATA
+        })
+        modalType === 'ingredient' && history.push('/')
+        modalType === 'order' && dispatch({
+            type: ORDER_DATA_RESET
+        })
+    }
+
 
     const { children, header} = props;
 
     return ReactDOM.createPortal(
 
-        ( <ModalOverlay onClose={() => modalToggler(props.isModalOpen, props.setIsModalOpen)}>
+        ( <ModalOverlay onClose={handleModalClose}>
 
             <div className={`${styles.modal} pt-10 pr-10 pl-10 pb-15`} onClick={handleStopPropagation}>
                 <div className={styles.header}>
                     {header && <p className="text text_type_main-large">{header}</p>}
-                    <span className={styles.modalCloseBtn} ><CloseIcon type="primary"  onClick={() => modalToggler(props.isModalOpen, props.setIsModalOpen)} /></span>
+                    <span className={styles.modalCloseBtn} ><CloseIcon type="primary"  onClick={handleModalClose} /></span>
                 </div>
                 {children}
             </div>
@@ -50,8 +75,6 @@ const Modal = (props) => {
 
 Modal.propTypes = {
     header: PropTypes.string,
-    isModalOpen: PropTypes.bool.isRequired,
-    setIsModalOpen: PropTypes.func.isRequired,
     children: PropTypes.element.isRequired
 }
 

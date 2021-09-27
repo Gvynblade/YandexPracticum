@@ -1,15 +1,19 @@
-import { TOGGLE_IS_FETCHING } from '../actions/app'
+import { TOGGLE_IS_FETCHING, MODAL_OPEN, MODAL_CLOSE } from '../actions/app'
 
 const initialState = {
-    isFetching: false
+    isFetching: false,
+    isModalOpen: false,
+    modalType: null
 }
 
 const appReducer = (state = initialState, action) => {
     switch (action.type) {
-        case TOGGLE_IS_FETCHING: {
+        case TOGGLE_IS_FETCHING:
+        case MODAL_OPEN:
+        case MODAL_CLOSE: {
             return {
                 ...state,
-                isFetching: !state.isFetching
+                ...action.payload
             }
         }
         default: return state
