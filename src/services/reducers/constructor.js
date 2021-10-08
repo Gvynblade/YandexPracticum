@@ -1,6 +1,6 @@
 import { ADD_INGREDIENT, DELETE_INGREDIENT, REPLACE_ITEMS } from '../actions/constructor'
 
-const initialState = {
+export const initialState = {
     bun: null,
     ingredients: []
 }
@@ -16,7 +16,7 @@ const constructorReducer = (state = initialState, action) => {
             :
             {
                 ...state,
-                ingredients: [...state.ingredients, {...action.item, hash: action.item._id + Math.floor(Math.random() * 100)}]
+                ingredients: [...state.ingredients, action.item]
             }
         }
         case DELETE_INGREDIENT: {

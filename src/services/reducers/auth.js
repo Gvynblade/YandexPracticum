@@ -6,7 +6,7 @@ RESET_PASSWORD_SUCCESS, RESET_PASSWORD_ERROR, SET_AUTHORISED, SET_NO_AUTHORISED
 UPDATE_USER_DATA_SUCCES, UPDATE_USER_DATA_ERROR, REQUEST_LOGOUT,
 REQUEST_LOGOUT_SUCCES, REQUEST_LOGOUT_ERROR} from '../actions/auth'
 
-const initialState = {
+export const initialState = {
     isAuthorised: null,
     userInfo: {
         email: '',

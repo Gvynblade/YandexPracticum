@@ -34,9 +34,19 @@ const ProfilePage = () => {
                         Выход
                     </p>
                 </NavLink>
-                <p className={`${styles.gray} text text_type_main-default mt-20`}>
-                    В этом разделе вы можете изменить свои персональные данные
-                </p>
+
+                <Route exact path={'/profile'}>
+                    <p className={`${styles.gray} text text_type_main-default mt-20`}>
+                        В этом разделе вы можете изменить свои персональные данные
+                    </p>
+                </Route>
+
+                <Route exact path={'/profile/orders'}>
+                    <p className={`${styles.gray} text text_type_main-default mt-20`}>
+                        В этом разделе вы можете просмотреть свою историю заказов
+                    </p>
+                </Route>
+
             </section>
 
             <section className={`${styles.profile__body} ml-15`}>

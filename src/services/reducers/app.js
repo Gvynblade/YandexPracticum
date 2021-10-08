@@ -1,6 +1,6 @@
 import { TOGGLE_IS_FETCHING, MODAL_OPEN, MODAL_CLOSE } from '../actions/app'
 
-const initialState = {
+export const initialState = {
     isFetching: false,
     isModalOpen: false,
     modalType: null

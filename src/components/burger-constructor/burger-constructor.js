@@ -29,9 +29,11 @@ const BurgerConstructor = () => {
     });
 
     const onDropHandler = (item) => {
+        let element = ingredientsData.find( i => i._id === item._id)
+        element.hash = item._id + Math.floor(Math.random() * 100)
         dispatch({
             type: ADD_INGREDIENT,
-            item: ingredientsData.find( i => i._id === item._id)
+            item: element
         })
         dispatch({
             type: INCREASE_ITEM_COUNTER,

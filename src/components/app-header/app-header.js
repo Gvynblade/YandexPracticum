@@ -34,7 +34,7 @@ const AppHeader = () => {
         <nav className={`${styles.nav} container`} >
 
         <NavLink to={'/'} className={`${styles.navItem} p-5 text text_type_main-default`} activeClassName={location.pathname !== "/" ? null : styles.active}>  <BurgerIcon type={location.pathname !== "/" ? "secondary" : "primary"} /> <span className="pl-2">Конструктор</span></NavLink>
-        <NavLink to={'/list'} className={`${styles.navItem} p-5 ml-2 text text_type_main-default`} activeClassName={styles.active} >  <ListIcon type={location.pathname.indexOf('/list') !== -1 ? "primary" : "secondary"} /> <span className="pl-2">Лента заказов</span></NavLink>
+        <NavLink to={'/feed'} className={`${styles.navItem} p-5 ml-2 text text_type_main-default`} activeClassName={styles.active} >  <ListIcon type={location.pathname.indexOf('/feed') !== -1 ? "primary" : "secondary"} /> <span className="pl-2">Лента заказов</span></NavLink>
 
         <div className={styles.logo}>
             <Logo />

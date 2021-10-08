@@ -3,6 +3,7 @@ import { getCookie } from '../utils/cookie'
 const APIUrlIngredients = 'https://norma.nomoreparties.space/api/ingredients'
 
 const APIUrlOrders = 'https://norma.nomoreparties.space/api/orders'
+const APIUrlOrdersAll = 'https://norma.nomoreparties.space/api/orders/all'
 
 const APIUrlRegister = 'https://norma.nomoreparties.space/api/auth/register'
 const APIUrlLogin = 'https://norma.nomoreparties.space/api/auth/login'
@@ -51,6 +52,38 @@ export const ordersAPI = {
             return {
                 ...response
             }
+        } catch (error) {
+            console.log(error);
+        }
+    },
+    async getUserOrders (payload) {
+        try {
+            let response = await fetch (APIUrlOrders, {
+                method: 'GET',
+                withCredentials: true,
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8',
+                    Authorization: 'Bearer ' + getCookie('token')
+                },
+            })
+            response = await response.json()
+            return response
+        } catch (error) {
+            console.log(error);
+        }
+    },
+    async getALLOrders (payload) {
+        try {
+            let response = await fetch (APIUrlOrdersAll, {
+                method: 'GET',
+                withCredentials: true,
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8',
+                    Authorization: 'Bearer ' + getCookie('token')
+                },
+            })
+            response = await response.json()
+            return response
         } catch (error) {
             console.log(error);
         }

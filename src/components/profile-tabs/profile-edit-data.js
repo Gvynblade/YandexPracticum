@@ -37,7 +37,7 @@ export const ProfileEditData = () => {
         setUserData(userInfo)
     }
 
-    return ( <>
+    return ( <div className='profile__box'>
         <div className="profile__input mb-6">
             <Input
                 type={'text'}
@@ -89,6 +89,6 @@ export const ProfileEditData = () => {
                 Сбросить
             </Button>
         </div> }
-    </>)
+    </div>)
 
 }

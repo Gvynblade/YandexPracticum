@@ -1,8 +1,9 @@
 import { CALCULATE_ORDER_PRICE, ORDER_DATA_REQUEST,
-ORDER_DATA_SUCCESS, ORDER_DATA_ERROR,
-SET_ORDER_DATA, ORDER_DATA_RESET } from '../actions/order'
+ORDER_DATA_SUCCESS, ORDER_DATA_ERROR, ORDER_DATA_RESET,
+ORDERS_LIST_DATA_REQUEST, ORDERS_LIST_DATA_SUCCESS,
+ORDERS_LIST_DATA_ERROR } from '../actions/order'
 
-const initialState = {
+export const initialState = {
     price: 0,
     orderData: {
         orderID: null,
@@ -11,7 +12,10 @@ const initialState = {
         orderDescription: null
     },
     orderDataRequest: false,
-    orderDataSuccess: false,
+    orderDataSuccess: null,
+    ordersList: [],
+    ordersListRequest: false,
+    ordersListSuccess: null,
     error: null
 }
 
@@ -20,7 +24,9 @@ const orderReducer = (state = initialState, action) => {
         case ORDER_DATA_REQUEST:
         case ORDER_DATA_SUCCESS:
         case ORDER_DATA_ERROR:
-        case SET_ORDER_DATA: {
+        case ORDERS_LIST_DATA_REQUEST:
+        case ORDERS_LIST_DATA_SUCCESS:
+        case ORDERS_LIST_DATA_ERROR: {
             return {
                 ...state,
                 ...action.payload

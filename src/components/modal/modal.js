@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { MODAL_CLOSE } from '../../services/actions/app'
 import { ORDER_DATA_RESET } from '../../services/actions/order'
 import { REMOVE_MODAL_DATA } from '../../services/actions/ingredients'
+import { WS_CONNECTION_STOP } from '../../services/actions/web-socket'
 import { useHistory } from 'react-router-dom'
 
 const modalRoot = document.getElementById('modal');
@@ -43,10 +44,13 @@ const Modal = (props) => {
                 modalType: null
             }
         })
+        modalType === 'feedOrder'  && dispatch({
+            type: WS_CONNECTION_STOP
+        })
         modalType === 'ingredient' && dispatch({
             type: REMOVE_MODAL_DATA
         })
-        modalType === 'ingredient' && history.push('/')
+        modalType !== 'order' && history.go(-1)
         modalType === 'order' && dispatch({
             type: ORDER_DATA_RESET
         })

@@ -10,11 +10,9 @@ export const ORDER_DATA_ERROR = 'orderReducer/ORDER_DATA_ERROR'
 
 export const ORDER_DATA_RESET = 'orderReducer/ORDER_DATA_RESET'
 
-export const SET_ORDER_DATA = 'orderReducer/SET_ORDER_DATA'
-
-export const SET_INGREDIENT_ID = 'orderReducer/SET_INGREDIENT_ID'
-
-
+export const ORDERS_LIST_DATA_REQUEST = 'orderReducer/ORDERS_LIST_DATA_REQUEST'
+export const ORDERS_LIST_DATA_SUCCESS = 'orderReducer/ORDERS_LIST_DATA_SUCCESS'
+export const ORDERS_LIST_DATA_ERROR = 'orderReducer/ORDERS_LIST_DATA_ERROR'
 
 export const requestOrderData = (ingredientIDs) => async (dispatch) => {
     dispatch({
@@ -66,6 +64,96 @@ export const requestOrderData = (ingredientIDs) => async (dispatch) => {
                 },
                 orderDataRequest: false,
                 orderDataSuccess:false,
+                error: response.error
+            }
+        });
+    }
+}
+
+export const requestAllOrders = () => async (dispatch) => {
+    dispatch({
+        type: ORDERS_LIST_DATA_REQUEST,
+        payload: {
+            ordersListRequest: true
+        }
+    })
+
+    if (!getCookie('token')) {
+        let newTokenResponse = await userAPI.updateToken()
+        if (newTokenResponse && newTokenResponse.success) {
+            let authToken = newTokenResponse.accessToken.split('Bearer ')[1];
+            if (authToken) {
+                setCookie('token', authToken, {
+                    expires: 1200
+                });
+            }
+            localStorage.setItem('refreshToken', newTokenResponse.refreshToken);
+        } else {
+            console.log('update token error')
+        }
+    }
+
+    let response = await ordersAPI.getALLOrders();
+    if (response && response.success) {
+        dispatch({
+            type: ORDERS_LIST_DATA_SUCCESS,
+            payload: {
+                ordersList: response.orders,
+                ordersListRequest: true,
+                ordersListSuccess: true,
+            }
+        });
+    } else {
+        dispatch({
+            type: ORDERS_LIST_DATA_ERROR,
+            payload: {
+                ordersListRequest: false,
+                ordersListSuccess: false,
+                error: response.error
+            }
+        });
+    }
+}
+
+export const requestUserOrders = () => async (dispatch) => {
+    dispatch({
+        type: ORDERS_LIST_DATA_REQUEST,
+        payload: {
+            ordersListRequest: true
+        }
+    })
+
+    if (!getCookie('token')) {
+        let newTokenResponse = await userAPI.updateToken()
+        if (newTokenResponse && newTokenResponse.success) {
+            let authToken = newTokenResponse.accessToken.split('Bearer ')[1];
+            if (authToken) {
+                setCookie('token', authToken, {
+                    expires: 1200
+                });
+            }
+            localStorage.setItem('refreshToken', newTokenResponse.refreshToken);
+        } else {
+            console.log('update token error')
+        }
+    }
+
+    let response = await ordersAPI.getUserOrders();
+    if (response && response.success) {
+        dispatch({
+            type: ORDERS_LIST_DATA_SUCCESS,
+            payload: {
+                ordersList: response.orders,
+                ordersListRequest: true,
+                ordersListSuccess: true,
+            }
+        });
+    } else {
+        dispatch({
+            type: ORDERS_LIST_DATA_ERROR,
+            payload: {
+                ordersListRequest: false,
+                ordersListSuccess: false,
                 error: response.error
             }
         });

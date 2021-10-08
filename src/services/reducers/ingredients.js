@@ -3,7 +3,7 @@ INGREDIENTS_ERROR, SET_MODAL_DATA,
 REMOVE_MODAL_DATA, SET_CURRENT_TAB,
 INCREASE_ITEM_COUNTER, DECREASE_ITEM_COUNTER } from '../actions/ingredients'
 
-const initialState = {
+export const initialState = {
     ingredients: [],
     ingredientsRequest: false,
     ingredientsSuccess: null,
@@ -62,7 +62,6 @@ const ingredientsReducer = (state = initialState, action) => {
             }
         }
         case DECREASE_ITEM_COUNTER: {
-            console.log(typeof(state.ingredients))
             const newItems = state.ingredients.map( (i) => {
 
                 if (i._id === action.id && i.type !== "bun") {

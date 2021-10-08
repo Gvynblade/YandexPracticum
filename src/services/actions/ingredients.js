@@ -29,7 +29,7 @@ export const requestIngredients = () => async (dispatch) => {
                 ingredients: response.data,
                 ingredientsRequest: false,
                 ingredientsSuccess:true
-                }
+            }
         });
     } else {
         dispatch({
