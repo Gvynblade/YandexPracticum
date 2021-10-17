@@ -41,9 +41,11 @@ export const ProfileOrdersHistory = () => {
                 }
 
                 item.ingredients.forEach( (id : string) => {
-                    let item = ingredients.find( (i: TIngredient) => i._id === id)
-                    element.ingredientsImages.push({name: item!.name, image: item!.image_mobile})
-                    element!.price! += item!.price
+                    let ingredient = ingredients.find( (i: TIngredient) => i._id === id)
+                    if (ingredient) {
+                        element.ingredientsImages.push({name: ingredient!.name, image: ingredient!.image_mobile})
+                        element!.price! += ingredient!.price
+                    }
                 })
 
                 orderElements.push(

@@ -7,7 +7,7 @@ import { Provider } from 'react-redux';
 import store from '../../services/store';
 import ProtectedRoute from '../hoc/protected-route'
 import ComponentSwitcher from '../hoc/component-switcher'
-import {useDispatch} from 'react-redux';
+import {useDispatch} from '../../services/hooks';
 import { requestIngredients } from '../../services/actions/ingredients'
 import { IngredientDetails } from '../burger-ingredients'
 import OrderDetails from '../order/order-details'

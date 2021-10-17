@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import {useDispatch, useSelector} from '../../services/hooks';
 import styles from './constructor-total-price.module.scss'

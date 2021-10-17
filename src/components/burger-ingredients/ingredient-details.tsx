@@ -9,10 +9,10 @@ const IngredientDetails: React.FC = () => {
     return (
         <div className={styles.ingredientBox}>
 
-            <img src={modalData!.image_large} alt={modalData!.name} className={styles.ingredientImg} />
+            <img src={modalData?.image_large} alt={modalData?.name} className={styles.ingredientImg} />
 
             <p className="text text_type_main-medium pt-4 pb-8">
-                {modalData!.name}
+                {modalData?.name}
             </p>
 
             <div className={styles.ingredientInfo}>
@@ -24,7 +24,7 @@ const IngredientDetails: React.FC = () => {
                         </p>
                     </span>
                     <span className={styles.ingredientInfo__value}>
-                        <p className="text text_type_digits-default">{modalData!.calories}</p>
+                        <p className="text text_type_digits-default">{modalData?.calories}</p>
                     </span>
                 </div>
 
@@ -35,7 +35,7 @@ const IngredientDetails: React.FC = () => {
                         </p>
                     </span>
                     <span className={styles.ingredientInfo__value}>
-                        <p className="text text_type_digits-default">{modalData!.proteins}</p>
+                        <p className="text text_type_digits-default">{modalData?.proteins}</p>
                     </span>
                 </div>
 
@@ -46,7 +46,7 @@ const IngredientDetails: React.FC = () => {
                         </p>
                     </span>
                     <span className={styles.ingredientInfo__value}>
-                        <p className="text text_type_digits-default">{modalData!.fat}</p>
+                        <p className="text text_type_digits-default">{modalData?.fat}</p>
                     </span>
                 </div>
 
@@ -57,7 +57,7 @@ const IngredientDetails: React.FC = () => {
                         </p>
                     </span>
                     <span className={styles.ingredientInfo__value}>
-                        <p className="text text_type_digits-default">{modalData!.carbohydrates}</p>
+                        <p className="text text_type_digits-default">{modalData?.carbohydrates}</p>
                     </span>
                 </div>
 

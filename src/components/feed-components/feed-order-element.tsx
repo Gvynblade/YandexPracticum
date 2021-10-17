@@ -2,7 +2,7 @@ import React from 'react';
 import Moment from 'react-moment';
 import 'moment/locale/ru';
 import 'moment-timezone';
-import {useDispatch} from 'react-redux'
+import {useDispatch} from '../../services/hooks'
 import { Link } from 'react-router-dom'
 import styles from './feed-order-element.module.scss'
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'

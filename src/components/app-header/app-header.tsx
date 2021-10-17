@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom'
 import styles from './app-header.module.scss'
 import { Logo, BurgerIcon, ProfileIcon, ListIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import { useDispatch} from 'react-redux'
+import { useDispatch} from '../../services/hooks'
 import { SET_AUTHORISED, SET_NO_AUTHORISED } from '../../services/actions/auth'
 import { useLocation } from 'react-router-dom'
 

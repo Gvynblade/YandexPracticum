@@ -6,7 +6,7 @@ import './profile-edit-data.scss'
 
 type TUserData = {
     email: string;
-    name:string;
+    name: string;
     password?: string
 }
 

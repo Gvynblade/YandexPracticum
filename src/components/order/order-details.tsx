@@ -13,11 +13,12 @@ import { TOrder, TIngredient } from '../../services/types/data'
 const OrderDetails: React.FC = () => {
 
     const {ingredients, ingredientsSuccess} = useSelector( store => store.burgerIngredients)
-    const {ordersList, ordersListSuccess} = useSelector( store => store.order)
+    const {ordersList, ordersListRequest, ordersListSuccess} = useSelector( store => store.order)
     const location = useLocation()
     const { id } = useParams<{ id: string }>();
     const dispatch = useDispatch()
     const [isWrongID, setIsWrongID] = useState(false)
+    const [isFetching, setIsFetching] = useState(true)
 
     let orderPrice = 0
     let order = null
@@ -27,9 +28,10 @@ const OrderDetails: React.FC = () => {
         dispatch(requestUserOrders())
         :
         dispatch(requestAllOrders())
-    }, [dispatch])
+        setIsFetching(false)
+    }, [])
 
-    if (ordersListSuccess && ingredientsSuccess) {
+    if (ordersListSuccess && !ordersListRequest && !isFetching && ingredientsSuccess) {
 
         order = ordersList.find( (element: TOrder) => element._id === id)
         if(!order) {setIsWrongID(true)} else {

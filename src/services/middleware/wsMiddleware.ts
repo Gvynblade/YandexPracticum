@@ -3,7 +3,7 @@ import { TWsActions } from '../store'
 
 export const socketMiddleware = (wsActions: TWsActions) => {
     return (store: any) => {
-        let socket: any = null;
+        let socket: WebSocket | null = null;
 
         return (next: any) => (action: any) => {
             const { dispatch, getState } = store;
@@ -15,10 +15,6 @@ export const socketMiddleware = (wsActions: TWsActions) => {
                 const accessToken = getCookie('token')
                 const url = isTokenReqired? payload.url + `?token=${accessToken}` : payload.url
                 socket = new WebSocket(url);
-            }
-
-            if (type === wsStop) {
-                socket.close('1000', 'Нормальное закрытие без ошибок.')
             }
 
             if (socket) {
@@ -47,6 +43,10 @@ export const socketMiddleware = (wsActions: TWsActions) => {
                 if (type === wsSendMessage) {
                     const message = payload;
                     socket.send(JSON.stringify(message));
+                }
+
+                if (type === wsStop) {
+                    socket.close(1000, 'Нормальное закрытие без ошибок.')
                 }
             }
 

@@ -65,7 +65,8 @@ export interface IOrderDataReset {
 export interface IOrdersListDataRequest {
     readonly type: typeof ORDERS_LIST_DATA_REQUEST;
     readonly payload: {
-        ordersListRequest: true
+        ordersListRequest: true,
+        ordersListSuccess: null
     }
 }
 
@@ -73,7 +74,7 @@ export interface IOrdersListDataSuccess {
     readonly type: typeof ORDERS_LIST_DATA_SUCCESS;
     readonly payload: {
         ordersList: TOrder[],
-        ordersListRequest: true,
+        ordersListRequest: false,
         ordersListSuccess: true,
     }
 }
@@ -150,7 +151,8 @@ export const requestAllOrders = () => async (dispatch: AppDispatch) => {
     dispatch({
         type: ORDERS_LIST_DATA_REQUEST,
         payload: {
-            ordersListRequest: true
+            ordersListRequest: true,
+            ordersListSuccess: null
         }
     })
 
@@ -175,7 +177,7 @@ export const requestAllOrders = () => async (dispatch: AppDispatch) => {
             type: ORDERS_LIST_DATA_SUCCESS,
             payload: {
                 ordersList: response.orders,
-                ordersListRequest: true,
+                ordersListRequest: false,
                 ordersListSuccess: true,
             }
         });
@@ -195,7 +197,8 @@ export const requestUserOrders = () => async (dispatch: AppDispatch) => {
     dispatch({
         type: ORDERS_LIST_DATA_REQUEST,
         payload: {
-            ordersListRequest: true
+            ordersListRequest: true,
+            ordersListSuccess: null
         }
     })
 
@@ -220,7 +223,7 @@ export const requestUserOrders = () => async (dispatch: AppDispatch) => {
             type: ORDERS_LIST_DATA_SUCCESS,
             payload: {
                 ordersList: response.orders,
-                ordersListRequest: true,
+                ordersListRequest: false,
                 ordersListSuccess: true,
             }
         });

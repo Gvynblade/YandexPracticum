@@ -50,10 +50,10 @@ const Modal: React.FC<TProps> = (props) => {
         modalType === 'ingredient' && dispatch({
             type: REMOVE_MODAL_DATA
         })
-        modalType !== 'order' && history.go(-1)
         modalType === 'order' && dispatch({
             type: ORDER_DATA_RESET
         })
+        modalType !== 'order' && history.go(-1)
     }
 
 
