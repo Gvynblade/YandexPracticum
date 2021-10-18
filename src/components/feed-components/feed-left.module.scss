@@ -1,0 +1,10 @@
+.feedColumn{
+    flex-basis: 600px;
+    max-height: calc(100vh - 200px);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--not-active-color) var(--scrollbar-color);
+    position: relative;
+}

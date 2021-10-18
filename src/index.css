@@ -6,9 +6,12 @@
     --radius: 40px;
     --not-active-color: #8585AD;
     --font-color: #F2F2F3;
+    --font-color-alt: #00CCCC;
     --scrollbar-color: #2F2F37;
     --scrollbar-width:8px;
     --link-color: #4C4CFF;
+    --gradient-color-start: #801AB3;
+    --gradient-color-end :#4C4CFF;
 }
 
 
