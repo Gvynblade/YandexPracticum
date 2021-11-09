@@ -23,6 +23,11 @@
     width:100% !important;
 }
 
+.form__errorMessage{
+    text-align: center;
+    color: red;
+}
+
 .form__button{
     display:flex;
     justify-content: center;

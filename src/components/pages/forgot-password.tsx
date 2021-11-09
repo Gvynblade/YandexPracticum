@@ -48,6 +48,10 @@ const ForgotPasswordPage: React.FC = () => {
                     />
                 </div>
 
+                { forgotPasswordSuccess === false && <span className="text text_type_main-default form__errorMessage mt-2 mb-6" >
+                    Упс, что-то пошло не так!
+                </span>}
+
                 <div className="form__button">
                     <Button type="primary" size="medium">
                         Восстановить

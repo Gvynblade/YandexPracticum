@@ -241,39 +241,43 @@ export const requestRegistration = (formData : {
     password: string
 }) => async (dispatch: AppDispatch) => {
 
-    dispatch({
-        type: REGISTRATION_REQUEST,
-        payload: {
-            registrationRequest: true
-        }
-    })
-
-    let response: any = await userAPI.register(formData);
-    if (response && response.success) {
+    try {
         dispatch({
-            type: REGISTRATION_SUCCESS,
+            type: REGISTRATION_REQUEST,
             payload: {
-                isAuthorised: true,
-                userInfo: response.user,
-                registrationRequest: false,
-                registrationSuccess: true
+                registrationRequest: true
             }
-        });
-        let authToken = response.accessToken.split('Bearer ')[1];
-        if (authToken) {
-            setCookie('token', authToken, {
-                expires: 1200
+        })
+
+        let response: any = await userAPI.register(formData);
+        if (response && response.success) {
+            dispatch({
+                type: REGISTRATION_SUCCESS,
+                payload: {
+                    isAuthorised: true,
+                    userInfo: response.user,
+                    registrationRequest: false,
+                    registrationSuccess: true
+                }
+            });
+            let authToken = response.accessToken.split('Bearer ')[1];
+            if (authToken) {
+                setCookie('token', authToken, {
+                    expires: 1200
+                });
+            }
+            localStorage.setItem('refreshToken', response.refreshToken);
+        } else {
+            dispatch({
+                type: REGISTRATION_ERROR,
+                payload: {
+                    registrationRequest: false,
+                    registrationSuccess: false
+                }
             });
         }
-        localStorage.setItem('refreshToken', response.refreshToken);
-    } else {
-        dispatch({
-            type: REGISTRATION_ERROR,
-            payload: {
-                registrationRequest: false,
-                registrationSuccess: false
-            }
-        });
+    } catch (e) {
+        console.error(e)
     }
 }
 
@@ -282,71 +286,80 @@ export const requestLogin = (formData : {
     password: string
 }) => async (dispatch: AppDispatch) => {
 
-    dispatch({
-        type: LOGIN_REQUEST,
-        payload: {
-            loginRequest: true
-        }
-    })
-
-    let response: any = await userAPI.login(formData);
-    if (response && response.success) {
+    try {
         dispatch({
-            type: LOGIN_SUCCESS,
+            type: LOGIN_REQUEST,
             payload: {
-                isAuthorised: true,
-                userInfo: response.user,
-                loginRequest: false,
-                loginSuccess: true
+                loginRequest: true
             }
-        });
-        let authToken = response.accessToken.split('Bearer ')[1];
-        if (authToken) {
-            setCookie('token', authToken, {
-                expires: 1200
+        })
+
+        let response: any = await userAPI.login(formData);
+        if (response && response.success) {
+            dispatch({
+                type: LOGIN_SUCCESS,
+                payload: {
+                    isAuthorised: true,
+                    userInfo: response.user,
+                    loginRequest: false,
+                    loginSuccess: true
+                }
+            });
+            let authToken = response.accessToken.split('Bearer ')[1];
+            if (authToken) {
+                setCookie('token', authToken, {
+                    expires: 1200
+                });
+            }
+            localStorage.setItem('refreshToken', response.refreshToken);
+        } else {
+            dispatch({
+                type: LOGIN_ERROR,
+                payload: {
+                    loginRequest: false,
+                    loginSuccess: false
+                }
             });
         }
-        localStorage.setItem('refreshToken', response.refreshToken);
-    } else {
-        dispatch({
-            type: LOGIN_ERROR,
-            payload: {
-                loginRequest: false,
-                loginSuccess: false
-            }
-        });
+    } catch (e) {
+        console.error(e)
     }
+
 }
 
 export const requestNewPassword = (formData : {
     email: string
 }) => async (dispatch: AppDispatch) => {
 
-    dispatch({
-        type: FORGOT_PASSWORD,
-        payload: {
-            forgotPasswordRequest: true,
-        }
-    })
+    try {
+        dispatch({
+            type: FORGOT_PASSWORD,
+            payload: {
+                forgotPasswordRequest: true,
+            }
+        })
 
-    let response: any = await userAPI.requestPasswordReset(formData);
-    if (response && response.success) {
-        dispatch({
-            type: FORGOT_PASSWORD_SUCCESS,
-            payload: {
-                forgotPasswordSuccess: true,
-                forgotPasswordRequest: false,
-                isResetPaswordRequested: true
-            }
-        });
-    } else {
-        dispatch({
-            type: FORGOT_PASSWORD_ERROR,
-            payload: {
-                forgotPasswordRequest: false,
-                forgotPasswordSuccess: false
-            }
-        });
+        let response: any = await userAPI.requestPasswordReset(formData);
+        if (response && response.success) {
+            dispatch({
+                type: FORGOT_PASSWORD_SUCCESS,
+                payload: {
+                    forgotPasswordSuccess: true,
+                    forgotPasswordRequest: false,
+                    isResetPaswordRequested: true
+                }
+            });
+        } else {
+            dispatch({
+                type: FORGOT_PASSWORD_ERROR,
+                payload: {
+                    forgotPasswordRequest: false,
+                    forgotPasswordSuccess: false
+                }
+            });
+        }
+    } catch (e) {
+        console.error(e)
     }
 }
 
@@ -355,77 +368,87 @@ export const resetPassword = (formData : {
     token: string
 }) => async (dispatch: AppDispatch) => {
 
-    dispatch({
-        type: REQUEST_NEW_PASSWORD,
-        payload: {
-            resetPasswordRequest: true,
-        }
-    })
+    try {
+        dispatch({
+            type: REQUEST_NEW_PASSWORD,
+            payload: {
+                resetPasswordRequest: true,
+            }
+        })
 
-    let response: any = await userAPI.resetPassword(formData);
-    if (response && response.success) {
-        dispatch({
-            type: RESET_PASSWORD_SUCCESS,
-            payload: {
-                resetPasswordRequest: false,
-                resetPasswordSuccess: true,
-                isResetPaswordRequested:false
-            }
-        });
-    } else {
-        dispatch({
-            type: RESET_PASSWORD_ERROR,
-            payload: {
-                resetPasswordRequest: false,
-                resetPasswordSuccess: false,
-            }
-        });
+        let response: any = await userAPI.resetPassword(formData);
+        if (response && response.success) {
+            dispatch({
+                type: RESET_PASSWORD_SUCCESS,
+                payload: {
+                    resetPasswordRequest: false,
+                    resetPasswordSuccess: true,
+                    isResetPaswordRequested:false
+                }
+            });
+        } else {
+            dispatch({
+                type: RESET_PASSWORD_ERROR,
+                payload: {
+                    resetPasswordRequest: false,
+                    resetPasswordSuccess: false,
+                }
+            });
+        }
+    } catch (e) {
+        console.error(e)
     }
+
 }
 
 export const getUserData = () => async (dispatch: AppDispatch) => {
 
-    dispatch({
-        type: GET_USER_DATA,
-        payload: {
-            getUserDataRequest: true,
-        }
-    })
-
-    if (!getCookie('token')) {
-        let newTokenResponse: any = await userAPI.updateToken()
-        if (newTokenResponse && newTokenResponse.success) {
-            let authToken = newTokenResponse.accessToken.split('Bearer ')[1];
-            if (authToken) {
-                setCookie('token', authToken, {
-                    expires: 1200
-                });
+    try {
+        dispatch({
+            type: GET_USER_DATA,
+            payload: {
+                getUserDataRequest: true,
             }
-            localStorage.setItem('refreshToken', newTokenResponse.refreshToken);
+        })
+
+        if (!getCookie('token')) {
+            let newTokenResponse: any = await userAPI.updateToken()
+            if (newTokenResponse && newTokenResponse.success) {
+                let authToken = newTokenResponse.accessToken.split('Bearer ')[1];
+                if (authToken) {
+                    setCookie('token', authToken, {
+                        expires: 1200
+                    });
+                }
+                localStorage.setItem('refreshToken', newTokenResponse.refreshToken);
+            } else {
+                console.log('update token error')
+            }
+        }
+
+        let response: any = await userAPI.getUserData();
+        if (response && response.success) {
+            dispatch({
+                type: GET_USER_DATA_SUCCES,
+                payload: {
+                    getUserDataRequest: false,
+                    getUserDataSuccess: true,
+                    userInfo: response.user
+                }
+            });
         } else {
-            console.log('update token error')
+            dispatch({
+                type: GET_USER_DATA_ERROR,
+                payload: {
+                    getUserDataRequest: false,
+                    getUserDataSuccess: false,
+                }
+            });
         }
+    } catch (e) {
+        console.error(e)
     }
 
-    let response: any = await userAPI.getUserData();
-    if (response && response.success) {
-        dispatch({
-            type: GET_USER_DATA_SUCCES,
-            payload: {
-                getUserDataRequest: false,
-                getUserDataSuccess: true,
-                userInfo: response.user
-            }
-        });
-    } else {
-        dispatch({
-            type: GET_USER_DATA_ERROR,
-            payload: {
-                getUserDataRequest: false,
-                getUserDataSuccess: false,
-            }
-        });
-    }
 }
 
 export const updateUserData = (formData: {
@@ -434,77 +457,85 @@ export const updateUserData = (formData: {
     password?: string
 }) => async (dispatch: AppDispatch) => {
 
-    dispatch({
-        type: UPDATE_USER_DATA,
-        payload: {
-            updateUserDataRequest: true,
-        }
-    })
-
-    if (!getCookie('token')) {
-        let newTokenResponse: any = await userAPI.updateToken()
-        if (newTokenResponse && newTokenResponse.success) {
-            let authToken = newTokenResponse.accessToken.split('Bearer ')[1];
-            if (authToken) {
-                setCookie('token', authToken, {
-                    expires: 1200
-                });
+    try {
+        dispatch({
+            type: UPDATE_USER_DATA,
+            payload: {
+                updateUserDataRequest: true,
             }
-            localStorage.setItem('refreshToken', newTokenResponse.refreshToken);
+        })
+
+        if (!getCookie('token')) {
+            let newTokenResponse: any = await userAPI.updateToken()
+            if (newTokenResponse && newTokenResponse.success) {
+                let authToken = newTokenResponse.accessToken.split('Bearer ')[1];
+                if (authToken) {
+                    setCookie('token', authToken, {
+                        expires: 1200
+                    });
+                }
+                localStorage.setItem('refreshToken', newTokenResponse.refreshToken);
+            } else {
+                console.log('update token error')
+            }
+        }
+
+        let response: any = await userAPI.patchUserData(formData);
+        if (response && response.success) {
+            dispatch({
+                type: UPDATE_USER_DATA_SUCCES,
+                payload: {
+                    updateUserDataRequest: false,
+                    updateUserDataSuccess: true,
+                    userInfo: response.user
+                }
+            });
         } else {
-            console.log('update token error')
+            dispatch({
+                type: UPDATE_USER_DATA_ERROR,
+                payload: {
+                    updateUserDataRequest: false,
+                    updateUserDataSuccess: false,
+                }
+            });
         }
-    }
-
-    let response: any = await userAPI.patchUserData(formData);
-    if (response && response.success) {
-        dispatch({
-            type: UPDATE_USER_DATA_SUCCES,
-            payload: {
-                updateUserDataRequest: false,
-                updateUserDataSuccess: true,
-                userInfo: response.user
-            }
-        });
-    } else {
-        dispatch({
-            type: UPDATE_USER_DATA_ERROR,
-            payload: {
-                updateUserDataRequest: false,
-                updateUserDataSuccess: false,
-            }
-        });
+    } catch (e) {
+        console.error(e)
     }
 }
 
 export const userLogout = () => async (dispatch: AppDispatch) => {
 
-    dispatch({
-        type: REQUEST_LOGOUT,
-        payload: {
-            logoutRequest: true,
-        }
-    })
-
-    let response: any = await userAPI.logout();
-    if (response && response.success) {
-        localStorage.removeItem('refreshToken')
+    try {
         dispatch({
-            type: REQUEST_LOGOUT_SUCCES,
+            type: REQUEST_LOGOUT,
             payload: {
-                isAuthorised: false,
-                logoutRequest: false,
-                logoutSuccess: true,
+                logoutRequest: true,
             }
         })
 
-    } else {
-        dispatch({
-            type: REQUEST_LOGOUT_ERROR,
-            payload: {
-                logoutRequest: false,
-                logoutSuccess: false,
-            }
-        });
+        let response: any = await userAPI.logout();
+        if (response && response.success) {
+            localStorage.removeItem('refreshToken')
+            dispatch({
+                type: REQUEST_LOGOUT_SUCCES,
+                payload: {
+                    isAuthorised: false,
+                    logoutRequest: false,
+                    logoutSuccess: true,
+                }
+            })
+
+        } else {
+            dispatch({
+                type: REQUEST_LOGOUT_ERROR,
+                payload: {
+                    logoutRequest: false,
+                    logoutSuccess: false,
+                }
+            });
+        }
+    } catch (e) {
+        console.error(e)
     }
 }

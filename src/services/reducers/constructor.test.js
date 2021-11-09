@@ -1,7 +1,7 @@
 import reducer, {initialState} from './constructor'
 import * as types from '../actions/constructor'
 
-describe('auth reducer', () => {
+describe('constructor reducer', () => {
     it('should return the initial state', () => {
         expect(reducer(undefined, {})).toEqual(
             initialState
@@ -276,6 +276,21 @@ describe('auth reducer', () => {
                         hash: 'bbbbbbbbbb'
                     }
                 ]
+            }
+        )
+    })
+
+    it('should handle CLEAR_CONSTRUCTOR', () => {
+        expect(
+            reducer({
+                bun: ['test', 'test', 'test', 'test', 'test'],
+                ingredients: ['test', 'test', 'test', 'test', 'test']
+            }, {
+                type: types.CLEAR_CONSTRUCTOR,
+            })
+        ).toEqual(
+            {
+                ...initialState
             }
         )
     })

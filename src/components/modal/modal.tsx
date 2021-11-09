@@ -6,8 +6,9 @@ import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { useDispatch, useSelector } from '../../services/hooks';
 import { MODAL_CLOSE } from '../../services/actions/app'
 import { ORDER_DATA_RESET } from '../../services/actions/order'
-import { REMOVE_MODAL_DATA } from '../../services/actions/ingredients'
+import {CLEAR_ITEMS_COUNTER, REMOVE_MODAL_DATA} from '../../services/actions/ingredients'
 import { useHistory } from 'react-router-dom'
+import {CLEAR_CONSTRUCTOR} from "../../services/actions/constructor";
 
 const modalRoot : HTMLElement | null = document.getElementById('modal')!;
 
@@ -52,6 +53,12 @@ const Modal: React.FC<TProps> = (props) => {
         })
         modalType === 'order' && dispatch({
             type: ORDER_DATA_RESET
+        })
+        modalType === 'order' && dispatch({
+            type: CLEAR_CONSTRUCTOR
+        })
+        modalType === 'order' && dispatch({
+            type: CLEAR_ITEMS_COUNTER
         })
         modalType !== 'order' && history.go(-1)
     }

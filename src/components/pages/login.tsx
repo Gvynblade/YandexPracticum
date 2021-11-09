@@ -59,6 +59,10 @@ const LoginPage: React.FC = () => {
                     <PasswordInput value={loginForm.password} name={'password'} onChange={ e => handleChange(e)} />
                 </div>
 
+                { loginSuccess === false && <span className="text text_type_main-default form__errorMessage mt-2 mb-6" >
+                    Упс, что-то пошло не так!
+                </span>}
+
                 <div className="form__button">
                     <Button type="primary" size="medium">
                         Войти
@@ -67,7 +71,7 @@ const LoginPage: React.FC = () => {
 
                 <span className={`form__footerField pt-20 pb-6`}>
                     <p className="text text_type_main-default">
-                        Вы — новый пользователь?
+                        Вы — новый пользователь?
                     </p>
                     <Link to={'/register'}>Зарегистрироваться</Link>
                 </span>

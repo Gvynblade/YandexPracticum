@@ -8,7 +8,7 @@ import { Redirect } from 'react-router-dom'
 
 const RegisterPage: React.FC = () => {
 
-    const { isAuthorised } =  useSelector( store => store.auth )
+    const { isAuthorised, registrationSuccess } =  useSelector( store => store.auth )
 
     const dispatch = useDispatch()
 
@@ -69,6 +69,10 @@ const RegisterPage: React.FC = () => {
                 <div className="form__input mb-6">
                     <PasswordInput value={registerForm.password} name={'password'} onChange={ e => handleChange(e)} />
                 </div>
+
+                { registrationSuccess === false && <span className="text text_type_main-default form__errorMessage mt-2 mb-6" >
+                    Упс, что-то пошло не так!
+                </span>}
 
                 <div className="form__button">
                     <Button type="primary" size="medium">

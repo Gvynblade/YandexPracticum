@@ -8,7 +8,7 @@ import { resetPassword } from '../../services/actions/auth'
 
 const ResetPasswordPage: React.FC = () => {
 
-    const {isResetPaswordRequested} = useSelector( store => store.auth);
+    const {isResetPaswordRequested, resetPasswordSuccess} = useSelector( store => store.auth);
     const dispatch = useDispatch()
 
     const [resetPasswordForm, setResetPasswordForm] = useState({
@@ -61,6 +61,10 @@ const ResetPasswordPage: React.FC = () => {
                         onChange={ e => handleChange(e)}
                     />
                 </div>
+
+                { resetPasswordSuccess === false && <span className="text text_type_main-default form__errorMessage mt-2 mb-6" >
+                    Упс, что-то пошло не так!
+                </span>}
 
                 <div className="form__button">
                     <Button type="primary" size="medium">

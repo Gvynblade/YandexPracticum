@@ -1,4 +1,4 @@
-import { ADD_INGREDIENT, DELETE_INGREDIENT, REPLACE_ITEMS, TConstructorActions } from '../actions/constructor'
+import { ADD_INGREDIENT, DELETE_INGREDIENT, REPLACE_ITEMS, CLEAR_CONSTRUCTOR, TConstructorActions } from '../actions/constructor'
 import { TIngredient } from '../types/data'
 
 export type TConstructorState = {
@@ -39,6 +39,11 @@ const constructorReducer = (state = initialState, action: TConstructorActions): 
             return {
                 ...state,
                 ingredients: newIngredients
+            }
+        }
+        case CLEAR_CONSTRUCTOR: {
+            return {
+                ...initialState
             }
         }
         default: return state

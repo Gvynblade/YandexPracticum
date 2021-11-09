@@ -92,149 +92,167 @@ export type TOrderActions = ICalculateOrderPrice | IOrderDataRequest | IOrderDat
 IOrderDataReset | IOrdersListDataRequest | IOrdersListDataSuccess | IOrdersListDataError
 
 export const requestOrderData = (ingredientIDs: string[]) => async (dispatch: AppDispatch) => {
-    dispatch({
-        type: ORDER_DATA_REQUEST,
-        payload: {
-            orderDataRequest: true
-        }
-    })
 
-    if (!getCookie('token')) {
-        let newTokenResponse: any = await userAPI.updateToken()
-        if (newTokenResponse && newTokenResponse.success) {
-            let authToken = newTokenResponse.accessToken.split('Bearer ')[1];
-            if (authToken) {
-                setCookie('token', authToken, {
-                    expires: 1200
-                });
+    try{
+        dispatch({
+            type: ORDER_DATA_REQUEST,
+            payload: {
+                orderDataRequest: true
             }
-            localStorage.setItem('refreshToken', newTokenResponse.refreshToken);
+        })
+
+        if (!getCookie('token')) {
+            let newTokenResponse: any = await userAPI.updateToken()
+            if (newTokenResponse && newTokenResponse.success) {
+                let authToken = newTokenResponse.accessToken.split('Bearer ')[1];
+                if (authToken) {
+                    setCookie('token', authToken, {
+                        expires: 1200
+                    });
+                }
+                localStorage.setItem('refreshToken', newTokenResponse.refreshToken);
+            } else {
+                console.log('update token error')
+            }
+        }
+
+        let response: any = await ordersAPI.postOrder(ingredientIDs);
+        if (response && response.success) {
+            dispatch({
+                type: ORDER_DATA_SUCCESS,
+                payload: {
+                    orderData: {
+                        orderID: response.order.number,
+                        statusIcon: succesOrderIcon,
+                        orderStatus: "Ваш заказ начали готовить",
+                        orderDescription: "Дождитесь готовности на орбитальной станции"
+                    },
+                    orderDataRequest: false,
+                    orderDataSuccess:true
+                }
+            });
         } else {
-            console.log('update token error')
+            dispatch({
+                type: ORDER_DATA_ERROR,
+                payload: {
+                    orderData: {
+                        orderID: null,
+                        statusIcon: null,
+                        orderStatus: null,
+                        orderDescription: null
+                    },
+                    orderDataRequest: false,
+                    orderDataSuccess:false,
+                    error: response.error
+                }
+            });
         }
+    } catch (e) {
+        console.error(e)
     }
 
-    let response: any = await ordersAPI.postOrder(ingredientIDs);
-    if (response && response.success) {
-        dispatch({
-            type: ORDER_DATA_SUCCESS,
-            payload: {
-                orderData: {
-                    orderID: response.order.number,
-                    statusIcon: succesOrderIcon,
-                    orderStatus: "Ваш заказ начали готовить",
-                    orderDescription: "Дождитесь готовности на орбитальной станции"
-                },
-                orderDataRequest: false,
-                orderDataSuccess:true
-            }
-        });
-    } else {
-        dispatch({
-            type: ORDER_DATA_ERROR,
-            payload: {
-                orderData: {
-                    orderID: null,
-                    statusIcon: null,
-                    orderStatus: null,
-                    orderDescription: null
-                },
-                orderDataRequest: false,
-                orderDataSuccess:false,
-                error: response.error
-            }
-        });
-    }
 }
 
 export const requestAllOrders = () => async (dispatch: AppDispatch) => {
-    dispatch({
-        type: ORDERS_LIST_DATA_REQUEST,
-        payload: {
-            ordersListRequest: true,
-            ordersListSuccess: null
-        }
-    })
 
-    if (!getCookie('token')) {
-        let newTokenResponse: any = await userAPI.updateToken()
-        if (newTokenResponse && newTokenResponse.success) {
-            let authToken = newTokenResponse.accessToken.split('Bearer ')[1];
-            if (authToken) {
-                setCookie('token', authToken, {
-                    expires: 1200
-                });
+    try{
+        dispatch({
+            type: ORDERS_LIST_DATA_REQUEST,
+            payload: {
+                ordersListRequest: true,
+                ordersListSuccess: null
             }
-            localStorage.setItem('refreshToken', newTokenResponse.refreshToken);
+        })
+
+        if (!getCookie('token')) {
+            let newTokenResponse: any = await userAPI.updateToken()
+            if (newTokenResponse && newTokenResponse.success) {
+                let authToken = newTokenResponse.accessToken.split('Bearer ')[1];
+                if (authToken) {
+                    setCookie('token', authToken, {
+                        expires: 1200
+                    });
+                }
+                localStorage.setItem('refreshToken', newTokenResponse.refreshToken);
+            } else {
+                console.log('update token error')
+            }
+        }
+
+        let response: any = await ordersAPI.getALLOrders();
+        if (response && response.success) {
+            dispatch({
+                type: ORDERS_LIST_DATA_SUCCESS,
+                payload: {
+                    ordersList: response.orders,
+                    ordersListRequest: false,
+                    ordersListSuccess: true,
+                }
+            });
         } else {
-            console.log('update token error')
+            dispatch({
+                type: ORDERS_LIST_DATA_ERROR,
+                payload: {
+                    ordersListRequest: false,
+                    ordersListSuccess: false,
+                    error: response.error
+                }
+            });
         }
+    } catch (e) {
+        console.error(e)
     }
 
-    let response: any = await ordersAPI.getALLOrders();
-    if (response && response.success) {
-        dispatch({
-            type: ORDERS_LIST_DATA_SUCCESS,
-            payload: {
-                ordersList: response.orders,
-                ordersListRequest: false,
-                ordersListSuccess: true,
-            }
-        });
-    } else {
-        dispatch({
-            type: ORDERS_LIST_DATA_ERROR,
-            payload: {
-                ordersListRequest: false,
-                ordersListSuccess: false,
-                error: response.error
-            }
-        });
-    }
 }
 
 export const requestUserOrders = () => async (dispatch: AppDispatch) => {
-    dispatch({
-        type: ORDERS_LIST_DATA_REQUEST,
-        payload: {
-            ordersListRequest: true,
-            ordersListSuccess: null
-        }
-    })
 
-    if (!getCookie('token')) {
-        let newTokenResponse: any = await userAPI.updateToken()
-        if (newTokenResponse && newTokenResponse.success) {
-            let authToken = newTokenResponse.accessToken.split('Bearer ')[1];
-            if (authToken) {
-                setCookie('token', authToken, {
-                    expires: 1200
-                });
+    try{
+        dispatch({
+            type: ORDERS_LIST_DATA_REQUEST,
+            payload: {
+                ordersListRequest: true,
+                ordersListSuccess: null
             }
-            localStorage.setItem('refreshToken', newTokenResponse.refreshToken);
+        })
+
+        if (!getCookie('token')) {
+            let newTokenResponse: any = await userAPI.updateToken()
+            if (newTokenResponse && newTokenResponse.success) {
+                let authToken = newTokenResponse.accessToken.split('Bearer ')[1];
+                if (authToken) {
+                    setCookie('token', authToken, {
+                        expires: 1200
+                    });
+                }
+                localStorage.setItem('refreshToken', newTokenResponse.refreshToken);
+            } else {
+                console.log('update token error')
+            }
+        }
+
+        let response: any = await ordersAPI.getUserOrders();
+        if (response && response.success) {
+            dispatch({
+                type: ORDERS_LIST_DATA_SUCCESS,
+                payload: {
+                    ordersList: response.orders,
+                    ordersListRequest: false,
+                    ordersListSuccess: true,
+                }
+            });
         } else {
-            console.log('update token error')
+            dispatch({
+                type: ORDERS_LIST_DATA_ERROR,
+                payload: {
+                    ordersListRequest: false,
+                    ordersListSuccess: false,
+                    error: response.error
+                }
+            });
         }
+    } catch (e) {
+        console.error(e)
     }
 
-    let response: any = await ordersAPI.getUserOrders();
-    if (response && response.success) {
-        dispatch({
-            type: ORDERS_LIST_DATA_SUCCESS,
-            payload: {
-                ordersList: response.orders,
-                ordersListRequest: false,
-                ordersListSuccess: true,
-            }
-        });
-    } else {
-        dispatch({
-            type: ORDERS_LIST_DATA_ERROR,
-            payload: {
-                ordersListRequest: false,
-                ordersListSuccess: false,
-                error: response.error
-            }
-        });
-    }
 }

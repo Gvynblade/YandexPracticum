@@ -14,6 +14,8 @@ export const SET_CURRENT_TAB = 'ingredientsReducer/SET_CURRENT_TAB' as const;
 export const INCREASE_ITEM_COUNTER = 'ingredientsReducer/INCREASE_ITEM_COUNTER' as const;
 export const DECREASE_ITEM_COUNTER = 'ingredientsReducer/DECREASE_ITEM_COUNTER' as const;
 
+export const CLEAR_ITEMS_COUNTER = 'ingredientsReducer/CLEAR_ITEMS_COUNTER' as const;
+
 export interface IIngredientsRequest {
     readonly type: typeof INGREDIENTS_REQUEST
     readonly payload: {
@@ -68,36 +70,46 @@ export interface IDecreaseItemCounter {
     readonly id: string
 }
 
+export interface IClearItemsCounter {
+    readonly type: typeof CLEAR_ITEMS_COUNTER
+}
+
 export type TIngredientsActions = IIngredientsRequest | IIngredientsSuccess | IIngredientsError | ISetModalData |
-IRemoveModalData | ISetCurrentTab | IIncreaseItemCounter | IDecreaseItemCounter
+IRemoveModalData | ISetCurrentTab | IIncreaseItemCounter | IDecreaseItemCounter | IClearItemsCounter
 
 export const requestIngredients = () => async (dispatch: AppDispatch) => {
-    dispatch({
-        type: INGREDIENTS_REQUEST,
-        payload: {
-            ingredientsRequest: true
-        }
-    })
 
-    let response: any = await ingredientsAPI.requestIngredients();
-    if (response && response.success) {
+    try{
         dispatch({
-            type: INGREDIENTS_SUCCESS,
+            type: INGREDIENTS_REQUEST,
             payload: {
-                ingredients: response.data,
-                ingredientsRequest: false,
-                ingredientsSuccess:true
+                ingredientsRequest: true
             }
-        });
-    } else {
-        dispatch({
-            type: INGREDIENTS_ERROR,
-            payload: {
-                ingredients: [],
-                ingredientsRequest: false,
-                ingredientsSuccess:false,
-                error: response.error
-            }
-        });
+        })
+
+        let response: any = await ingredientsAPI.requestIngredients();
+        if (response && response.success) {
+            dispatch({
+                type: INGREDIENTS_SUCCESS,
+                payload: {
+                    ingredients: response.data,
+                    ingredientsRequest: false,
+                    ingredientsSuccess:true
+                }
+            });
+        } else {
+            dispatch({
+                type: INGREDIENTS_ERROR,
+                payload: {
+                    ingredients: [],
+                    ingredientsRequest: false,
+                    ingredientsSuccess:false,
+                    error: response.error
+                }
+            });
+        }
+    } catch (e) {
+        console.error(e)
     }
+
 }

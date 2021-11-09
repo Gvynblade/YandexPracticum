@@ -1,7 +1,9 @@
-import { INGREDIENTS_REQUEST, INGREDIENTS_SUCCESS,
-INGREDIENTS_ERROR, SET_MODAL_DATA,
-REMOVE_MODAL_DATA, SET_CURRENT_TAB,
-INCREASE_ITEM_COUNTER, DECREASE_ITEM_COUNTER, TIngredientsActions } from '../actions/ingredients'
+import {
+    INGREDIENTS_REQUEST, INGREDIENTS_SUCCESS,
+    INGREDIENTS_ERROR, SET_MODAL_DATA,
+    REMOVE_MODAL_DATA, SET_CURRENT_TAB,
+    INCREASE_ITEM_COUNTER, DECREASE_ITEM_COUNTER, TIngredientsActions, CLEAR_ITEMS_COUNTER
+} from '../actions/ingredients'
 import {TIngredient} from '../types/data'
 
 export type TIngredientsState = {
@@ -83,6 +85,22 @@ const ingredientsReducer = (state = initialState, action: TIngredientsActions): 
                 return i
             }
             )
+            return {
+                ...state,
+                ingredients: newItems
+            }
+        }
+        case CLEAR_ITEMS_COUNTER: {
+            let newItems = state.ingredients.map( (i) => {
+                if (i.__v > 0) {
+                    return {
+                        ...i,
+                        __v:  0
+                    }
+                }
+                return i
+            })
+
             return {
                 ...state,
                 ingredients: newItems
